@@ -1,6 +1,6 @@
 # Handled HomeCare website (handledhomecare.com)
 
-Plain static site: no framework, no build step. Cloudflare Pages deploys every push to `main` automatically.
+Plain static site: no framework, no build step. Local preview: `npm run dev` (http://localhost:3000). Cloudflare Pages deploys every push to `main` automatically.
 
 ## Files
 - `index.html`: all page text and layout. Pages are sections (`data-page="home|membership|about|get-started"`) switched by the URL hash (#membership).
