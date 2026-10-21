@@ -9,16 +9,19 @@
   function $(id) { return document.getElementById(id); }
   function make(tag, cls, text) { var el = document.createElement(tag); if (cls) el.className = cls; if (text != null) el.textContent = text; return el; }
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var WHO_LABEL = { mine: "My home", parent: "My parent's home", away: "A home I'm away from" };
+  var WHO_LABEL = { mine: "My home", parent: "My parent's home", away: "A home I'm away from", pro: "A local pro" };
   var NEED_LABEL = { inside: "Inside the house", outside: "Outside the house", water: "On the water", safe: "Safe at home", away: "House checks", unsure: "Not sure" };
   var state = { db: null, user: null, uid: null, canSave: false };
   /* On the real website, js/site-config.js sets window.HH_SITE. Inside the Claude artifact it is absent. */
   var SITE = window.HH_SITE || null;
-  var SITE_KEY = SITE && typeof SITE.formKey === "string" && /^[0-9a-f-]{20,}$/i.test(SITE.formKey.trim()) ? SITE.formKey.trim() : "";
+  /* The form sends only when all three EmailJS settings are filled in. */
+  function cfg(v) { v = typeof v === "string" ? v.trim() : ""; return v && !/^PASTE/i.test(v) ? v : ""; }
+  var EMAILJS = SITE && SITE.emailjs ? { serviceId: cfg(SITE.emailjs.serviceId), templateId: cfg(SITE.emailjs.templateId), publicKey: cfg(SITE.emailjs.publicKey) } : null;
+  var SITE_READY = !!(EMAILJS && EMAILJS.serviceId && EMAILJS.templateId && EMAILJS.publicKey);
 
   /* ---------- pages ---------- */
   var ROUTES = ["home", "membership", "about", "get-started"];
-  var ALIAS = { services: "home", "what-we-handle": "home", pricing: "membership", "get-help": "get-started", families: "home", "how-it-works": "home", how: "home" };
+  var ALIAS = { pros: "get-started", services: "home", "what-we-handle": "home", pricing: "membership", "get-help": "get-started", families: "home", "how-it-works": "home", how: "home" };
   /* old links that now point at a spot on the home page */
   var ANCHORS = { "how-it-works": "how", how: "how", services: "help", "what-we-handle": "help" };
   function anchorFor(h) { return ANCHORS.hasOwnProperty(h) ? ANCHORS[h] : null; }
@@ -52,7 +55,13 @@
     document.body.setAttribute("data-route", route);
     setCurrentNav(route, opts.anchor);
     closeMenu();
-    if (route === "get-started") openFlow();
+    var cta = document.querySelector(".nav-cta");
+    var onForm = route === "get-started";
+    cta.textContent = onForm ? "Back to site" : "Get started";
+    cta.setAttribute("href", onForm ? "#home" : "#get-started");
+    cta.classList.toggle("btn-sun", !onForm);
+    cta.classList.toggle("btn-quiet", onForm);
+    if (route === "get-started") { if (location.hash === "#pros") setDraft({ who: "pro" }); openFlow(); }
     if (opts.anchor) { setTimeout(function () { scrollToAnchor(opts.anchor); }, changed ? 30 : 0); return; }
     if (changed || opts.top) {
       window.scrollTo(0, 0);
@@ -259,15 +268,6 @@
     }
   }
 
-  /* ---------- gentle reveals as tiles scroll in ---------- */
-  if (!reduceMotion && "IntersectionObserver" in window) {
-    root.classList.add("rv-on");
-    var rvObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("is-in"); rvObs.unobserve(en.target); } });
-    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.12 });
-    document.querySelectorAll(".rv").forEach(function (el) { rvObs.observe(el); });
-  }
-
   /* ---------- request flow ---------- */
   var form = $("flow");
   var qs = form.querySelectorAll(".q");
@@ -306,9 +306,12 @@
 
   function syncFlow() {
     form.querySelectorAll(".opt-row, .pill").forEach(function (l) { var i = l.querySelector("input"); l.classList.toggle("is-checked", !!(i && i.checked)); });
+    var isPro = radio("who") === "pro";
     $("parent-fields").hidden = radio("who") !== "parent";
+    $("fld-urgency").hidden = isPro;
+    $("visit-opt").hidden = isPro;
     var memberOnly = $("f-member").checked;
-    $("q2-help").textContent = memberOnly
+    $("q2-help").textContent = isPro ? "Tell us what work you do and how long you've done it." : memberOnly
       ? "Anything you need help with right now? This is optional if you're just joining."
       : "Describe it in your own words, the way you'd tell a neighbor.";
     $("prog-text").textContent = "Step " + step + " of " + TOTAL;
@@ -331,7 +334,7 @@
     var first = null;
     if (n === 1 && !radio("who")) { $("err-who").hidden = false; first = $("who-mine"); }
     if (n === 2 && !$("f-member").checked && val("f-details").length < 3) { fieldError("fld-details", "f-details"); first = $("f-details"); }
-    if (n === 4) {
+    if (n === 3) {
       var digits = val("f-phone").replace(/\D/g, "");
       var em = val("f-email");
       if (!val("f-name")) { fieldError("fld-name", "f-name"); first = first || $("f-name"); }
@@ -339,7 +342,7 @@
       if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { fieldError("fld-email", "f-email"); first = first || $("f-email"); }
       if (radio("who") === "parent" && !val("f-owner")) { fieldError("fld-owner", "f-owner"); first = first || $("f-owner"); }
     }
-    if (n === 5 && !radio("town")) { $("err-town").hidden = false; first = $("town-stevensville"); }
+    if (n === 4 && !radio("town")) { $("err-town").hidden = false; first = $("town-stevensville"); }
     if (first) { first.focus(); return false; }
     return true;
   }
@@ -371,7 +374,7 @@
       who: who,
       needs: checked("needs").map(function (n) { return NEED_LABEL[n] || n; }),
       details: val("f-details"),
-      urgency: radio("urgency"),
+      urgency: who === "pro" ? "Not applicable (local pro)" : radio("urgency"),
       name: val("f-name"),
       phone: val("f-phone"),
       callTime: radio("calltime"),
@@ -380,7 +383,7 @@
       ownerPhone: who === "parent" ? val("f-owner-phone") : "",
       town: radio("town"),
       street: val("f-street"),
-      visit: $("f-visit").checked,
+      visit: who === "pro" ? false : $("f-visit").checked,
       member: $("f-member").checked
     };
   }
@@ -408,10 +411,10 @@
     row("The job", r.details || (r.member ? "Joining as a member" : ""), 2);
     if (r.needs.length) row("Kind of job", r.needs.join(", "), 2);
     if (r.visit) row("Visit first", "Yes, check it out in person", 2);
-    row("How soon", r.urgency, 3);
-    row("We'll call", r.name + ", " + r.phone + " (" + r.callTime.toLowerCase() + ")", 4);
-    if (r.email) row("Email", r.email, 4);
-    row("Home", [r.street, r.town].filter(Boolean).join(", "), 5);
+    row("How soon", r.urgency, 2);
+    row("We'll call", r.name + ", " + r.phone + " (" + r.callTime.toLowerCase() + ")", 3);
+    if (r.email) row("Email", r.email, 3);
+    row("Home", [r.street, r.town].filter(Boolean).join(", "), 4);
     if (!editable && r.member) row("Membership", "Yes, sign me up");
   }
 
@@ -427,7 +430,7 @@
   var ready = (async function () {
     if (SITE) {
       if (/[?&]team(=|&|$)/.test(location.search)) document.body.classList.add("is-team");
-      if (SITE_KEY) { state.canSave = true; syncFlow(); } else setPreview();
+      if (SITE_READY) { state.canSave = true; syncFlow(); } else setPreview();
       return;
     }
     var hasRuntime = !!(window.claude && typeof window.claude.use === "function");
@@ -446,39 +449,40 @@
     if (state.db && editor) startInbox();
   })().catch(function () { setPreview(); });
 
+  /* Sends the request through the EmailJS REST API. Field names match the template in CLAUDE.md. */
   async function sendByEmail(rec) {
-    var yes = function (b) { return b ? "Yes" : "No"; };
-    var body = {
-      access_key: SITE_KEY,
-      subject: "New request No. " + rec.ticketNo + " from " + (rec.name || "the website"),
-      from_name: "Handled HomeCare website",
-      "Request No.": rec.ticketNo,
-      "Name": rec.name,
-      "Phone": rec.phone,
-      "Best time to call": rec.callTime,
-      "For": WHO_LABEL[rec.who] || rec.who,
-      "Kind of job": rec.needs.join(", "),
-      "The job": rec.details || (rec.member ? "Joining as a member" : ""),
-      "How soon": rec.urgency,
-      "Visit in person first": yes(rec.visit),
-      "Wants membership": yes(rec.member),
-      "Street": rec.street,
-      "Town": rec.town,
-      "Sent": new Date(rec.createdAt).toLocaleString()
-    };
-    if (rec.email) { body.email = rec.email; body.replyto = rec.email; }
-    if (rec.ownerName) body["Parent's name"] = rec.ownerName;
-    if (rec.ownerPhone) body["Parent's phone"] = rec.ownerPhone;
-    Object.keys(body).forEach(function (k) { if (body[k] === "") delete body[k]; });
-    var res = await fetch("https://api.web3forms.com/submit", {
+    var yes = function (v) { return v ? "Yes" : "No"; };
+    var who = (WHO_LABEL[rec.who] || rec.who) + (rec.ownerName ? ": " + rec.ownerName + (rec.ownerPhone ? ", " + rec.ownerPhone : "") : "");
+    var res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(body)
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: EMAILJS.serviceId,
+        template_id: EMAILJS.templateId,
+        user_id: EMAILJS.publicKey,
+        template_params: {
+          request_no: rec.ticketNo,
+          name: rec.name,
+          phone: rec.phone,
+          call_time: rec.callTime,
+          who_for: who,
+          kind_of_job: rec.needs.join(", ") || "Not said",
+          job: rec.details || (rec.member ? "Joining as a member" : ""),
+          how_soon: rec.urgency,
+          visit_first: yes(rec.visit),
+          membership: yes(rec.member),
+          street: rec.street || "Not given",
+          town: rec.town,
+          email: rec.email || "Not given",
+          reply_to: rec.email,
+          sent_at: new Date(rec.createdAt).toLocaleString()
+        }
+      })
     });
-    var data = null;
-    try { data = await res.json(); } catch (e) { data = null; }
-    if (!res.ok || (data && data.success === false)) {
-      var err = new Error((data && data.message) || ("HTTP " + res.status));
+    if (!res.ok) {
+      var text = "";
+      try { text = await res.text(); } catch (e) { text = ""; }
+      var err = new Error(text || ("HTTP " + res.status));
       err.code = res.status === 429 ? "quota_exceeded" : "send_failed";
       throw err;
     }
@@ -591,6 +595,40 @@
       list.appendChild(make("p", "fine", "The inbox couldn't load. Reopen the page to try again."));
     });
   }
+
+  /* ---------- thank-you: text this to a neighbor ---------- */
+  var shareBtn = $("share-btn"), shareStatus = $("share-status");
+  var onPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  shareBtn.addEventListener("click", function (e) {
+    if (onPhone) return;   /* phones open their texting app through the sms: link */
+    e.preventDefault();
+    var text = shareBtn.getAttribute("data-msg");
+    if (navigator.share) { navigator.share({ text: text }).catch(function () {}); return; }
+    var done = function () { shareStatus.textContent = "Copied. Paste it into a text or email."; };
+    try { navigator.clipboard.writeText(text).then(done, function () { shareStatus.textContent = text; }); }
+    catch (err) { shareStatus.textContent = text; }
+  });
+
+  /* ---------- phone: a Get started button follows you down the page ---------- */
+  var stickyCta = $("sticky-cta");
+  var stickyTick = false;
+  function updateSticky() {
+    stickyTick = false;
+    var h = document.documentElement;
+    var past = window.pageYOffset > window.innerHeight * 0.6;
+    /* hide the bar once the closing call to action or the footer is on screen, so it never covers them */
+    var end = document.querySelector(".foot");
+    var closing = Array.prototype.filter.call(document.querySelectorAll(".price-band, .mem-close"), function (s) { return s.offsetParent !== null; })[0];
+    var nearEnd = (end && end.getBoundingClientRect().top < window.innerHeight - 8) || (closing && closing.getBoundingClientRect().top < window.innerHeight - 8);
+    var on = past && !nearEnd && (current === "home" || current === "membership");
+    stickyCta.classList.toggle("is-on", on);
+    stickyCta.setAttribute("aria-hidden", on ? "false" : "true");
+    stickyCta.tabIndex = on ? 0 : -1;
+  }
+  function queueSticky() { if (!stickyTick) { stickyTick = true; requestAnimationFrame(updateSticky); } }
+  window.addEventListener("scroll", queueSticky, { passive: true });
+  window.addEventListener("resize", queueSticky);
+  window.addEventListener("hashchange", queueSticky);
 
   /* ---------- start ---------- */
   syncFlow();

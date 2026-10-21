@@ -1,0 +1,5 @@
+# Short links. Cloudflare Pages reads this file on every deploy.
+/n /#home 302
+/start /#get-started 302
+/join /#membership 302
+/pros /#pros 302

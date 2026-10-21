@@ -17,7 +17,8 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="fonts/libre-franklin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/public-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="canonical" href="https://handledhomecare.com/">
 <meta property="og:url" content="https://handledhomecare.com/">
 <link rel="stylesheet" href="css/styles.css">
@@ -25,14 +26,14 @@
 <body>
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#home" aria-label="Handled HomeCare, home"><img class="mark" src="assets/mark-sm.webp" alt="" width="330" height="105"><img class="word" src="assets/wordmark-sm.webp" alt="" width="300" height="74"></a>
+    <a class="brand" href="#home" aria-label="Handled HomeCare, home"><img class="mark" src="assets/mark-sm.webp" alt="" width="330" height="105"></a>
     <nav class="links" aria-label="Main">
       <a href="#how-it-works" data-nav="how">How it works</a>
       <a href="#membership" data-nav="membership">Membership</a>
       <a href="#about" data-nav="about">About</a>
     </nav>
     <a class="btn btn-sun nav-cta" href="#get-started">Get started</a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></svg>Menu</button>
+    <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></svg><span>Menu</span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Menu" hidden>
     <ul class="wrap">
@@ -50,25 +51,26 @@
 <!-- =========================== HOME =========================== -->
 <div class="page" data-page="home">
   <section class="hero" aria-labelledby="hero-title">
-    <div class="wrap hero-frame">
+    <div class="hero-frame">
       <div class="hero-media">
         <img class="hero-img" src="assets/photos/hero-sharp.jpg" alt="A suspension bridge over the water at sunset, seen past a dock piling" width="2000" height="2439" fetchpriority="high">
         <h1 class="hero-title" id="hero-title" tabindex="-1"><span class="ht-top">Your home,</span> <span class="ht-bottom">handled.</span></h1>
+        <div class="hero-copy">
+          <p class="lead">Providing your home care help locally here on the Island.</p>
+          <div class="cta-row">
+            <a class="btn btn-sun" href="#get-started">Get started</a>
+            <a class="link" href="#how-it-works">See how it works</a>
+          </div>
+          <p class="fine">Takes about a minute. Nothing is booked or charged until you say yes.</p>
+        </div>
       </div>
     </div>
-    <div class="wrap hero-copy">
-      <p class="lead">Providing your home care help locally here on the Island.</p>
-      <div class="cta-row">
-        <a class="btn btn-sun" href="#get-started">Get started</a>
-        <a class="link" href="#how-it-works">See how it works</a>
-      </div>
-      <p class="fine">Plans that fit your home. No contract.</p>
-    </div>
+
   </section>
 
   <section class="night statement" aria-label="Why Handled HomeCare">
     <div class="wrap">
-      <p class="statement-text" id="statement"><span class="w">Owning</span> <span class="w">a</span> <span class="w">home</span> <span class="w">is</span> <span class="w">a</span> <span class="w">lot</span> <span class="w">of</span> <span class="w">work.</span> <span class="w">We</span> <span class="w">want</span> <span class="w">to</span> <span class="w">help.</span> <span class="w">We</span> <span class="w">answer</span> <span class="w">24/7</span> <span class="w">so</span> <span class="w">you</span> <span class="w">can</span> <span class="w">stop</span> <span class="w">procrastinating</span> <span class="w">on</span> <span class="w">that</span> <span class="w">work</span> <span class="w">you</span> <span class="w">need</span> <span class="w">done.</span></p>
+      <p class="statement-text" id="statement"><span class="w">Owning</span> <span class="w">a</span> <span class="w">home</span> <span class="w">is</span> <span class="w">a</span> <span class="w">lot</span> <span class="w">of</span> <span class="w">work.</span> <span class="w">We</span> <span class="w">want</span> <span class="w">to</span> <span class="w">help.</span> <span class="w">We</span> <span class="w">answer</span> <span class="w gold">24/7</span> <span class="w">so</span> <span class="w">you</span> <span class="w">can</span> <span class="w gold ul">stop </span><span class="w gold ul">procrastinating</span> <span class="w">on</span> <span class="w">that</span> <span class="w">work</span> <span class="w">you</span> <span class="w">need</span> <span class="w">done.</span></p>
       <div class="stat">
         <svg class="hgrid" viewBox="-1 -1 296 296" aria-hidden="true" focusable="false"><defs><path id="hg-house" d="M12 2.5 21.5 10.2V21.5H2.5V10.2Z"/></defs><use href="#hg-house" x="0" y="0" class="h on" style="--i:0"/><use href="#hg-house" x="30" y="0" class="h on" style="--i:1"/><use href="#hg-house" x="60" y="0" class="h on" style="--i:2"/><use href="#hg-house" x="90" y="0" class="h on" style="--i:3"/><use href="#hg-house" x="120" y="0" class="h on" style="--i:4"/><use href="#hg-house" x="150" y="0" class="h on" style="--i:5"/><use href="#hg-house" x="180" y="0" class="h on" style="--i:6"/><use href="#hg-house" x="210" y="0" class="h on" style="--i:7"/><use href="#hg-house" x="240" y="0" class="h on" style="--i:8"/><use href="#hg-house" x="270" y="0" class="h on" style="--i:9"/><use href="#hg-house" x="0" y="30" class="h on" style="--i:10"/><use href="#hg-house" x="30" y="30" class="h on" style="--i:11"/><use href="#hg-house" x="60" y="30" class="h on" style="--i:12"/><use href="#hg-house" x="90" y="30" class="h on" style="--i:13"/><use href="#hg-house" x="120" y="30" class="h on" style="--i:14"/><use href="#hg-house" x="150" y="30" class="h on" style="--i:15"/><use href="#hg-house" x="180" y="30" class="h on" style="--i:16"/><use href="#hg-house" x="210" y="30" class="h on" style="--i:17"/><use href="#hg-house" x="240" y="30" class="h on" style="--i:18"/><use href="#hg-house" x="270" y="30" class="h on" style="--i:19"/><use href="#hg-house" x="0" y="60" class="h on" style="--i:20"/><use href="#hg-house" x="30" y="60" class="h on" style="--i:21"/><use href="#hg-house" x="60" y="60" class="h on" style="--i:22"/><use href="#hg-house" x="90" y="60" class="h on" style="--i:23"/><use href="#hg-house" x="120" y="60" class="h on" style="--i:24"/><use href="#hg-house" x="150" y="60" class="h on" style="--i:25"/><use href="#hg-house" x="180" y="60" class="h on" style="--i:26"/><use href="#hg-house" x="210" y="60" class="h on" style="--i:27"/><use href="#hg-house" x="240" y="60" class="h on" style="--i:28"/><use href="#hg-house" x="270" y="60" class="h on" style="--i:29"/><use href="#hg-house" x="0" y="90" class="h on" style="--i:30"/><use href="#hg-house" x="30" y="90" class="h on" style="--i:31"/><use href="#hg-house" x="60" y="90" class="h on" style="--i:32"/><use href="#hg-house" x="90" y="90" class="h on" style="--i:33"/><use href="#hg-house" x="120" y="90" class="h on" style="--i:34"/><use href="#hg-house" x="150" y="90" class="h on" style="--i:35"/><use href="#hg-house" x="180" y="90" class="h on" style="--i:36"/><use href="#hg-house" x="210" y="90" class="h on" style="--i:37"/><use href="#hg-house" x="240" y="90" class="h on" style="--i:38"/><use href="#hg-house" x="270" y="90" class="h on" style="--i:39"/><use href="#hg-house" x="0" y="120" class="h on" style="--i:40"/><use href="#hg-house" x="30" y="120" class="h on" style="--i:41"/><use href="#hg-house" x="60" y="120" class="h on" style="--i:42"/><use href="#hg-house" x="90" y="120" class="h on" style="--i:43"/><use href="#hg-house" x="120" y="120" class="h on" style="--i:44"/><use href="#hg-house" x="150" y="120" class="h on" style="--i:45"/><use href="#hg-house" x="180" y="120" class="h on" style="--i:46"/><use href="#hg-house" x="210" y="120" class="h on" style="--i:47"/><use href="#hg-house" x="240" y="120" class="h on" style="--i:48"/><use href="#hg-house" x="270" y="120" class="h on" style="--i:49"/><use href="#hg-house" x="0" y="150" class="h on" style="--i:50"/><use href="#hg-house" x="30" y="150" class="h on" style="--i:51"/><use href="#hg-house" x="60" y="150" class="h on" style="--i:52"/><use href="#hg-house" x="90" y="150" class="h on" style="--i:53"/><use href="#hg-house" x="120" y="150" class="h on" style="--i:54"/><use href="#hg-house" x="150" y="150" class="h on" style="--i:55"/><use href="#hg-house" x="180" y="150" class="h on" style="--i:56"/><use href="#hg-house" x="210" y="150" class="h on" style="--i:57"/><use href="#hg-house" x="240" y="150" class="h on" style="--i:58"/><use href="#hg-house" x="270" y="150" class="h on" style="--i:59"/><use href="#hg-house" x="0" y="180" class="h on" style="--i:60"/><use href="#hg-house" x="30" y="180" class="h on" style="--i:61"/><use href="#hg-house" x="60" y="180" class="h on" style="--i:62"/><use href="#hg-house" x="90" y="180" class="h on" style="--i:63"/><use href="#hg-house" x="120" y="180" class="h on" style="--i:64"/><use href="#hg-house" x="150" y="180" class="h" style="--i:65"/><use href="#hg-house" x="180" y="180" class="h" style="--i:66"/><use href="#hg-house" x="210" y="180" class="h" style="--i:67"/><use href="#hg-house" x="240" y="180" class="h" style="--i:68"/><use href="#hg-house" x="270" y="180" class="h" style="--i:69"/><use href="#hg-house" x="0" y="210" class="h" style="--i:70"/><use href="#hg-house" x="30" y="210" class="h" style="--i:71"/><use href="#hg-house" x="60" y="210" class="h" style="--i:72"/><use href="#hg-house" x="90" y="210" class="h" style="--i:73"/><use href="#hg-house" x="120" y="210" class="h" style="--i:74"/><use href="#hg-house" x="150" y="210" class="h" style="--i:75"/><use href="#hg-house" x="180" y="210" class="h" style="--i:76"/><use href="#hg-house" x="210" y="210" class="h" style="--i:77"/><use href="#hg-house" x="240" y="210" class="h" style="--i:78"/><use href="#hg-house" x="270" y="210" class="h" style="--i:79"/><use href="#hg-house" x="0" y="240" class="h" style="--i:80"/><use href="#hg-house" x="30" y="240" class="h" style="--i:81"/><use href="#hg-house" x="60" y="240" class="h" style="--i:82"/><use href="#hg-house" x="90" y="240" class="h" style="--i:83"/><use href="#hg-house" x="120" y="240" class="h" style="--i:84"/><use href="#hg-house" x="150" y="240" class="h" style="--i:85"/><use href="#hg-house" x="180" y="240" class="h" style="--i:86"/><use href="#hg-house" x="210" y="240" class="h" style="--i:87"/><use href="#hg-house" x="240" y="240" class="h" style="--i:88"/><use href="#hg-house" x="270" y="240" class="h" style="--i:89"/><use href="#hg-house" x="0" y="270" class="h" style="--i:90"/><use href="#hg-house" x="30" y="270" class="h" style="--i:91"/><use href="#hg-house" x="60" y="270" class="h" style="--i:92"/><use href="#hg-house" x="90" y="270" class="h" style="--i:93"/><use href="#hg-house" x="120" y="270" class="h" style="--i:94"/><use href="#hg-house" x="150" y="270" class="h" style="--i:95"/><use href="#hg-house" x="180" y="270" class="h" style="--i:96"/><use href="#hg-house" x="210" y="270" class="h" style="--i:97"/><use href="#hg-house" x="240" y="270" class="h" style="--i:98"/><use href="#hg-house" x="270" y="270" class="h" style="--i:99"/></svg>
         <div class="stat-copy">
@@ -81,7 +83,22 @@
     </div>
   </section>
 
-  <section class="story" aria-labelledby="how-title">
+  <section class="sec help-sec rule-after" aria-labelledby="help-title">
+    <div class="wrap">
+      <div class="sec-head" id="help">
+        <h2 class="h-sec" id="help-title">How we can help</h2>
+        <p class="lead">We'll manage all the work you need with local companies we both can trust.</p>
+      </div>
+      <ul class="help-list"><li><a class="help-row" href="#get-started" data-needs="inside"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></span><span class="help-name">Inside the house</span><span class="help-ex">Plumbing, heating and air, electrical, appliances, handyman jobs</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li><li><a class="help-row" href="#get-started" data-needs="outside"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" /><path d="M7 16v6" /><path d="M13 19v3" /><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" /></svg></span><span class="help-name">Outside the house</span><span class="help-ex">Gutters, lawn and yard, roof repairs, power washing, tree work</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li><li><a class="help-row" href="#get-started" data-needs="water"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 22V8" /><path d="M5 12H2a10 10 0 0 0 20 0h-3" /><circle cx="12" cy="5" r="3" /></svg></span><span class="help-name">On the water</span><span class="help-ex">Docks and piers, boat lifts, bulkheads, boat cleaning</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li><li><a class="help-row" href="#get-started" data-needs="safe"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" /><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /><path d="m2 15 6 6" /><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z" /></svg></span><span class="help-name">Safe at home</span><span class="help-ex">Grab bars, handrails, ramps, stairlifts, walk-in showers</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li><li><a class="help-row" href="#get-started" data-needs="away" data-who="away"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" /><circle cx="16.5" cy="7.5" r=".5" fill="currentColor" /></svg></span><span class="help-name">While you&#x27;re away</span><span class="help-ex">House checks, after-storm checks, opening and closing the house</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li></ul>
+      <div class="help-foot">
+        <p class="muted">Don't see it? <a class="link" href="#get-started">Ask anyway</a>.</p>
+      </div>
+    </div>
+  </section>
+
+    <hr class="sect-rule" aria-hidden="true">
+
+<section class="story rule-before rule-after" aria-labelledby="how-title">
     <div class="wrap story-grid">
       <div class="steps-head" id="how">
         <h2 class="h-sec" id="how-title">One message.<br> We take it from there.</h2>
@@ -101,7 +118,7 @@
                 <span class="chat-name">Handled HomeCare</span>
                 <span class="chat-sub">Kent Island, MD</span>
               </div>
-              <div class="thread" id="thread"><p class="m-time">Today 9:12 AM</p><p class="m m-me">Hi, it&#x27;s Linda over on Cox Neck. Our gutters are overflowing again and there&#x27;s another storm coming Thursday. Can someone clean them out?</p><p class="m m-us">Hey Linda! For sure, we&#x27;ll get someone out there before Thursday.</p></div>
+              <div class="thread" id="thread"><p class="m-time">Today 9:12 AM</p><p class="m m-me">Our gutters are overflowing again. Storm&#x27;s coming Thursday.</p><p class="m m-us">We&#x27;ll get right on that.</p></div>
               <div class="composer" aria-hidden="true"><span>Message</span><i></i></div>
             </div>
           </div>
@@ -111,24 +128,11 @@
 
       <div class="steps" id="how-it-works-steps">
         <ol>
-          <li class="step is-active" data-step="1"><span class="step-num" aria-hidden="true">1</span><h3>Tell us what's wrong.</h3><p>Describe your issue and tell us if you need us to personally check it out.</p></li>
-          <li class="step" data-step="2"><span class="step-num" aria-hidden="true">2</span><h3>We line up a pro we trust.</h3><p>Someone local we've already checked out. We'll coordinate the preferred completion date and price.</p></li>
-          <li class="step" data-step="3"><span class="step-num" aria-hidden="true">3</span><h3>You say yes. They do the job.</h3><p>You pay the pro directly. We never add anything to their price.</p></li>
-          <li class="step" data-step="4"><span class="step-num" aria-hidden="true">4</span><h3>We make sure it's done right.</h3><p>If something's off, let us know, and we will check it out if needed.</p></li>
+          <li class="step is-active" data-step="1"><span class="step-num" aria-hidden="true">1.</span><h3>Tell us what's wrong.</h3><p>Describe your issue and tell us if you need us to personally check it out.</p></li>
+          <li class="step" data-step="2"><span class="step-num" aria-hidden="true">2.</span><h3>We line up a pro we trust.</h3><p>Someone local we've already checked out. We'll coordinate the preferred completion date and price.</p></li>
+          <li class="step" data-step="3"><span class="step-num" aria-hidden="true">3.</span><h3>You say yes. They do the job.</h3><p>You pay the pro directly. We never add anything to their price.</p></li>
+          <li class="step" data-step="4"><span class="step-num" aria-hidden="true">4.</span><h3>We make sure it's done right.</h3><p>If something's off, let us know, and we will check it out if needed.</p></li>
         </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec help-sec" aria-labelledby="help-title">
-    <div class="wrap">
-      <div class="sec-head" id="help">
-        <h2 class="h-sec" id="help-title">How we can help</h2>
-        <p class="lead">We will find someone to do your work that we can both trust.</p>
-      </div>
-      <ul class="help-list"><li><a class="help-row" href="#get-started" data-needs="inside"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></span><span class="help-name">Inside the house</span><span class="help-ex">Plumbing, heating and air, electrical, appliances, handyman jobs</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li><li><a class="help-row" href="#get-started" data-needs="outside"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" /><path d="M7 16v6" /><path d="M13 19v3" /><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" /></svg></span><span class="help-name">Outside the house</span><span class="help-ex">Gutters, lawn and yard, roof repairs, power washing, tree work</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li><li><a class="help-row" href="#get-started" data-needs="water"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 22V8" /><path d="M5 12H2a10 10 0 0 0 20 0h-3" /><circle cx="12" cy="5" r="3" /></svg></span><span class="help-name">On the water</span><span class="help-ex">Docks and piers, boat lifts, bulkheads, boat cleaning</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li><li><a class="help-row" href="#get-started" data-needs="safe"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" /><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /><path d="m2 15 6 6" /><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z" /></svg></span><span class="help-name">Safe at home</span><span class="help-ex">Grab bars, handrails, ramps, stairlifts, walk-in showers</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li><li><a class="help-row" href="#get-started" data-needs="away" data-who="away"><span class="help-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" /><circle cx="16.5" cy="7.5" r=".5" fill="currentColor" /></svg></span><span class="help-name">While you&#x27;re away</span><span class="help-ex">House checks, after-storm checks, opening and closing the house</span><span class="help-go"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></span></a></li></ul>
-      <div class="help-foot">
-        <p class="muted">Don't see it? <a class="link" href="#get-started">Ask anyway</a>.</p>
       </div>
     </div>
   </section>
@@ -138,7 +142,9 @@
     <p class="wrap local-cap">Kent Island, Maryland</p>
   </section>
 
-  <section class="sec" aria-labelledby="aud-title">
+    <hr class="sect-rule" aria-hidden="true">
+
+<section class="sec rule-before" aria-labelledby="aud-title">
     <div class="wrap">
       <div class="sec-head">
         <h2 class="h-sec" id="aud-title">For your home, or one you look after.</h2>
@@ -146,20 +152,23 @@
       <div class="aud-grid">
         <article class="aud">
           <figure class="slot" style="--ratio: 4 / 3" data-slot="aud-mine"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Homeowner photo</p><p class="slot-tip">A neighbor on their porch or in their kitchen. Ask before posting.</p></div></figure>
+          <svg class="ic aud-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><mask id="aud-hw-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24"><rect width="24" height="24" fill="#fff" /><circle cx="18.2" cy="18.2" r="6.3" fill="#000" /></mask></defs><g mask="url(#aud-hw-mask)" transform="translate(0 .2) scale(.78)" stroke-width="2.56"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></g><g transform="translate(10.8 10.8) scale(.58)" stroke-width="3.45"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></g></svg>
           <h3>Your home</h3>
-          <p>Everything your house needs, from a dripping faucet to a new roof. You only have to tell us once.</p>
+          <p>Everything your home needs, from the A/C failing to tending to your lawn care. We've got you covered.</p>
           <a class="link" href="#get-started" data-who="mine">Get help for my home</a>
         </article>
         <article class="aud">
           <figure class="slot" style="--ratio: 4 / 3" data-slot="aud-parent"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Family photo</p><p class="slot-tip">A grown son or daughter with a parent at home. Ask before posting.</p></div></figure>
+          <svg class="ic aud-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66" /><path d="m18 15-2-2" /><path d="m15 18-2-2" /></svg>
           <h3>Your parents' home</h3>
-          <p>They're on Kent Island and you're not. We take care of it and keep you posted.</p>
+          <p>Whether you're near them or not, we make sure their home is taken care of fast.</p>
           <a class="link" href="#get-started" data-who="parent">Help my parents</a>
         </article>
         <article class="aud">
           <figure class="slot" style="--ratio: 4 / 3" data-slot="aud-away"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Closed-up house photo</p><p class="slot-tip">A Kent Island house shut for the season, or a quiet dock in winter.</p></div></figure>
+          <svg class="ic aud-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></svg>
           <h3>A home you're away from</h3>
-          <p>A second home, a rental, or a winter down south. We make sure it's looked after.</p>
+          <p>A rental, second home or just for some regular check ups. We're here to help.</p>
           <a class="link" href="#get-started" data-who="away" data-needs="away">Set up house checks</a>
         </article>
       </div>
@@ -171,25 +180,20 @@
       <div class="trust-top">
         <div class="trust-intro">
           <h2 class="h-sec" id="trust-title">Real people you can reach.</h2>
-          <p class="lead">Handled HomeCare was started by three University of Maryland business students. You'll always know who you're talking to.</p>
+          <p class="lead">Handled HomeCare was started by three University of Maryland business students.</p>
           <a class="link" href="#about">Meet the team</a>
         </div>
-        <ul class="faces faces-sm"><li class="face"><figure class="slot" style="--ratio: 4 / 5" data-slot="face-justin"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Justin&#x27;s photo</p><p class="slot-tip">Head and shoulders, plain background, daylight.</p></div></figure><h3>Justin Fink</h3><p class="role">Co-founder</p></li><li class="face"><figure class="slot" style="--ratio: 4 / 5" data-slot="face-austin"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Austin&#x27;s photo</p><p class="slot-tip">Head and shoulders, plain background, daylight.</p></div></figure><h3>Austin Holland</h3><p class="role">Co-founder</p></li><li class="face"><figure class="slot" style="--ratio: 4 / 5" data-slot="face-tucker"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Tucker&#x27;s photo</p><p class="slot-tip">Head and shoulders, plain background, daylight.</p></div></figure><h3>Tucker Moran</h3><p class="role">Co-founder</p></li></ul>
+        <ul class="faces faces-sm"><li class="face"><figure class="slot face-photo" style="--ratio: 4 / 5" data-slot="face-justin"><img alt="Justin Fink" width="800" height="1000" decoding="async"></figure><h3>Justin Fink</h3><p class="role">Co-founder</p></li><li class="face"><figure class="slot face-photo" style="--ratio: 4 / 5" data-slot="face-austin"><img alt="Austin Holland" width="800" height="1000" decoding="async"></figure><h3>Austin Holland</h3><p class="role">Co-founder</p></li><li class="face"><figure class="slot face-photo" style="--ratio: 4 / 5" data-slot="face-tucker"><img alt="Tucker Moran" width="800" height="1000" decoding="async"></figure><h3>Tucker Moran</h3><p class="role">Co-founder</p></li></ul>
       </div>
       <ul class="promises">
-        <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 17.5v-11" /></svg><h3>You see the price first.</h3><p>Nothing is booked until you say yes.</p></li>
-        <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /><path d="m2 16 6 6" /><circle cx="16" cy="9" r="2.9" /><circle cx="6" cy="5" r="3" /></svg><h3>We never mark up a job.</h3><p>The pro's price is the price you pay.</p></li>
-        <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="m9 14 2 2 4-4" /></svg><h3>We check every job.</h3><p>If something's off, we stay on it.</p></li>
+        <li><svg class="ic promise-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 17.5v-11" /></svg><h3>You see the price first.</h3><p>Nothing is booked until you say yes.</p></li>
+        <li><svg class="ic promise-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /><path d="m2 16 6 6" /><circle cx="16" cy="9" r="2.9" /><circle cx="6" cy="5" r="3" /></svg><h3>We never mark up a job.</h3><p>The pro's price is the price you pay.</p></li>
+        <li><svg class="ic promise-ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="m9 14 2 2 4-4" /></svg><h3>We check every job.</h3><p>If something's off, we stay on it.</p></li>
       </ul>
-      <div class="reviews">
-        <svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></svg>
-        <div><h3>What members say</h3><p>Our first members join this fall. Their reviews will be posted here, with their permission.</p></div>
-        <a class="link" href="#get-started" data-member="1">Become a founding member</a>
-      </div>
     </div>
   </section>
 
-  <section class="price-band" aria-labelledby="price-title">
+  <section class="night price-band" aria-labelledby="price-title">
     <div class="wrap price-in">
       <h2 class="h-sec" id="price-title">Membership built around your home.</h2>
       <p class="lead">What you pay depends on the kind of membership you need. You'll know your price before you join. No contract. Cancel anytime.</p>
@@ -197,6 +201,7 @@
         <a class="btn btn-sun" href="#get-started" data-member="1">Become a member</a>
         <a class="link" href="#membership">See what's included</a>
       </div>
+      <ul class="assure"><li>No contract</li><li>Cancel anytime</li><li>No payment today</li></ul>
     </div>
   </section>
 
@@ -204,7 +209,7 @@
 
 <!-- =========================== MEMBERSHIP =========================== -->
 <div class="page" data-page="membership" hidden>
-  <section class="mem-hero" aria-labelledby="mem-title">
+  <section class="mem-hero rule-after" aria-labelledby="mem-title">
     <div class="wrap mem-grid">
       <div class="mem-copy">
         <p class="eyebrow">Handled Membership</p>
@@ -215,9 +220,9 @@
           <a class="link" href="#get-started" data-member="0">Try us once first</a>
         </div>
         <ul class="assure">
-          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>No contract</li>
-          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>Cancel anytime</li>
-          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>No payment today</li>
+          <li>No contract</li>
+          <li>Cancel anytime</li>
+          <li>No payment today</li>
         </ul>
       </div>
       <div class="mem-visual">
@@ -229,7 +234,7 @@
               <span class="chat-name">Handled HomeCare</span>
               <span class="chat-sub">Kent Island, MD</span>
             </div>
-            <div class="thread"><p class="m-time" style="--b: 0">Today 9:12 AM</p><p class="m m-me" style="--b: 1">Our gutters are overflowing again. Can someone come clean them out?</p><p class="m m-us" style="--b: 2">Just talked to Mike in Stevensville. He can come Wednesday morning.</p><p class="m m-us" style="--b: 3">It&#x27;d be $160 for the whole house. Want me to lock it in?</p><p class="m m-me" style="--b: 4">Yes please!</p><p class="m m-us" style="--b: 5">Done! Wednesday, 9 to 11. You&#x27;ll pay Mike directly.</p></div>
+            <div class="thread"><p class="m-time" style="--b: 0">Today 9:12 AM</p><p class="m m-me" style="--b: 1">Our gutters are overflowing again. Storm&#x27;s coming Thursday.</p><p class="m m-us" style="--b: 2">We&#x27;ll get right on that.</p><p class="m m-us" style="--b: 3">Mike can come Wednesday morning. $160 for the whole house. Want it?</p><p class="m m-me" style="--b: 4">Yes please!</p><p class="m m-us" style="--b: 5">Done. You&#x27;re all set for Wednesday.</p></div>
             <div class="composer" aria-hidden="true"><span>Message</span><i></i></div>
           </div>
         </div>
@@ -238,10 +243,12 @@
     </div>
   </section>
 
-  <section class="sec inc-sec" aria-labelledby="inc-title">
+    <hr class="sect-rule" aria-hidden="true">
+
+<section class="sec inc-sec rule-before" aria-labelledby="inc-title">
     <div class="wrap">
       <h2 class="h-sec" id="inc-title">What membership includes</h2>
-      <ul class="inc-grid"><li class="rv" style="--rv-i: 0"><span class="inc-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z" /></svg></span><h3>Unlimited requests</h3><p>Big jobs and small ones, as often as you need.</p></li><li class="rv" style="--rv-i: 1"><span class="inc-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="m9 12 2 2 4-4" /></svg></span><h3>Pros we&#x27;ve checked out</h3><p>No more guessing who to call.</p></li><li class="rv" style="--rv-i: 2"><span class="inc-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /><path d="m9 16 2 2 4-4" /></svg></span><h3>Scheduling done for you</h3><p>We set up the visit at a time that works.</p></li><li class="rv" style="--rv-i: 0"><span class="inc-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg></span><h3>Follow-up on every job</h3><p>We check that it was done right.</p></li><li class="rv" style="--rv-i: 1"><span class="inc-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg></span><h3>Seasonal reminders</h3><p>Gutters, heating, sprinklers, and the rest, before they turn into problems.</p></li><li class="rv" style="--rv-i: 2"><span class="inc-ic"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg></span><h3>Family updates</h3><p>We can keep a son or daughter in the loop.</p></li></ul>
+      <ul class="inc-grid"><li><h3>Unlimited requests</h3><p>Big jobs and small ones, as often as you need.</p></li><li><h3>Pros we&#x27;ve checked out</h3><p>No more guessing who to call.</p></li><li><h3>Scheduling done for you</h3><p>We set up the visit at a time that works.</p></li><li><h3>Follow-up on every job</h3><p>We check that it was done right.</p></li><li><h3>Seasonal reminders</h3><p>Gutters, heating, sprinklers, and the rest, before they turn into problems.</p></li><li><h3>Family updates</h3><p>We can keep a son or daughter in the loop.</p></li></ul>
     </div>
   </section>
 
@@ -252,21 +259,21 @@
         <p class="lead">You'll always know who gets paid, and for what.</p>
       </div>
       <ol class="flows">
-        <li class="rv"><p class="flow-who"><span class="party">You</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg><span class="party party-us">Handled</span></p><p><strong>Your membership</strong> for finding the pro, setting up the visit, and following up.</p></li>
-        <li class="rv" style="--rv-i: 1"><p class="flow-who"><span class="party">You</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg><span class="party party-pro">The pro</span></p><p><strong>The price of the job.</strong> You see it first and pay them directly.</p></li>
-        <li class="rv" style="--rv-i: 2"><p class="flow-who"><span class="party party-pro">The pro</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg><span class="party party-us">Handled</span></p><p><strong>A small fee</strong> for sending them work. It's never added to your bill.</p></li>
+        <li><p class="flow-who"><span class="party">You</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg><span class="party party-us">Handled</span></p><p><strong>Your membership</strong> for finding the pro, setting up the visit, and following up.</p></li>
+        <li><p class="flow-who"><span class="party">You</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg><span class="party party-pro">The pro</span></p><p><strong>The price of the job.</strong> You see it first and pay them directly.</p></li>
+        <li><p class="flow-who"><span class="party party-pro">The pro</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg><span class="party party-us">Handled</span></p><p><strong>A small fee</strong> for sending them work. It's never added to your bill.</p></li>
       </ol>
     </div>
   </section>
 
-  <section class="sec" aria-label="Other ways to start">
+  <section class="sec rule-after" aria-label="Other ways to start">
     <div class="wrap opt-grid">
-      <div class="opt rv">
+      <div class="opt">
         <h2 class="h-sm">Not ready to join?</h2>
         <p>Send one request without signing up. If you like how it goes, we'll help you pick the membership that fits.</p>
         <a class="link" href="#get-started" data-member="0">Try us once</a>
       </div>
-      <div class="opt rv" style="--rv-i: 1">
+      <div class="opt">
         <h2 class="h-sm">Away from home a lot?</h2>
         <p>We can set up regular house checks while you're gone. The price depends on how often someone stops by.</p>
         <a class="link" href="#get-started" data-who="away" data-needs="away" data-notes="I'd like to ask about regular house checks.">Ask about house checks</a>
@@ -274,7 +281,9 @@
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="faq-title" style="padding-top: 0">
+    <hr class="sect-rule" aria-hidden="true">
+
+<section class="sec rule-before" aria-labelledby="faq-title">
     <div class="wrap faq-grid">
       <h2 class="h-sec" id="faq-title">Questions people ask</h2>
       <div class="qa-list"><details class="qa"><summary><span>Are you contractors?</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg></summary><p>No. We find the right local pro and manage the job for you. Independent pros do the work and are responsible for it.</p></details><details class="qa"><summary><span>How much is membership?</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg></summary><p>It depends on the kind of membership you need. We&#x27;ll go over the options with you, and you&#x27;ll know your price before you join. The work itself is priced by the pro, and you see that price before anything is booked.</p></details><details class="qa"><summary><span>How do you make money?</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg></summary><p>From memberships, and from a small fee pros pay us when we send them work. We never add anything to your bill.</p></details><details class="qa"><summary><span>Can I try it before joining?</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg></summary><p>Yes. Send one request without signing up. If you like how it goes, we&#x27;ll help you pick the membership that fits.</p></details><details class="qa"><summary><span>Can I cancel?</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg></summary><p>Yes, anytime. There&#x27;s no contract.</p></details><details class="qa"><summary><span>Who sees my information?</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg></summary><p>Only our team and the pro we send to your home.</p></details><details class="qa"><summary><span>Do I need a computer?</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg></summary><p>No. A family member can send requests for you, and our phone line opens soon.</p></details><details class="qa"><summary><span>What about emergencies?</span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg></summary><p>If you smell gas, see sparks, or have water pouring in, call 911 or your utility company first. We&#x27;re not an emergency service.</p></details></div>
@@ -290,9 +299,9 @@
         <a class="link" href="#get-started" data-member="0">Try us once first</a>
       </div>
       <ul class="assure">
-        <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>No contract</li>
-        <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>Cancel anytime</li>
-        <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>No payment today</li>
+        <li>No contract</li>
+        <li>Cancel anytime</li>
+        <li>No payment today</li>
       </ul>
     </div>
   </section>
@@ -300,7 +309,7 @@
 
 <!-- =========================== ABOUT =========================== -->
 <div class="page" data-page="about" hidden>
-  <section class="page-hero">
+  <section class="page-hero rule-after-lg">
     <div class="wrap">
       <h1 class="h-page" tabindex="-1">Every home on Kent Island should have someone to call.</h1>
       <p class="lead">Handled HomeCare was started by three University of Maryland business students to be that someone.</p>
@@ -308,7 +317,9 @@
   </section>
   <div class="wrap"><figure class="slot" style="--ratio: 16 / 9" data-slot="team"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Team photo</p><p class="slot-tip">The three of you in suits outside the business school.</p></div></figure></div>
 
-  <section class="sec" aria-labelledby="why-title">
+    <hr class="sect-rule" aria-hidden="true">
+
+<section class="sec rule-before-lg rule-after" aria-labelledby="why-title">
     <div class="wrap two-col">
       <h2 class="h-sec" id="why-title">Why we started</h2>
       <div class="prose">
@@ -318,7 +329,9 @@
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="team-title" style="padding-top: 0">
+    <hr class="sect-rule" aria-hidden="true">
+
+<section class="sec rule-before" aria-labelledby="team-title">
     <div class="wrap">
       <h2 class="h-sec" id="team-title">The people you'll talk to</h2>
       <ul class="faces faces-lg"><li class="face"><figure class="slot" style="--ratio: 4 / 5" data-slot="face-justin"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Justin&#x27;s photo</p><p class="slot-tip">Head and shoulders, plain background, daylight.</p></div></figure><h3>Justin Fink</h3><p class="role">Co-founder</p><p class="bio">Bio coming soon.</p><p class="slot-tip bio-tip">Two or three lines: your Kent Island connection and what you take care of at Handled.</p></li><li class="face"><figure class="slot" style="--ratio: 4 / 5" data-slot="face-austin"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Austin&#x27;s photo</p><p class="slot-tip">Head and shoulders, plain background, daylight.</p></div></figure><h3>Austin Holland</h3><p class="role">Co-founder</p><p class="bio">Bio coming soon.</p><p class="slot-tip bio-tip">Two or three lines: your Kent Island connection and what you take care of at Handled.</p></li><li class="face"><figure class="slot" style="--ratio: 4 / 5" data-slot="face-tucker"><div class="slot-in"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg><p class="slot-label">Tucker&#x27;s photo</p><p class="slot-tip">Head and shoulders, plain background, daylight.</p></div></figure><h3>Tucker Moran</h3><p class="role">Co-founder</p><p class="bio">Bio coming soon.</p><p class="slot-tip bio-tip">Two or three lines: your Kent Island connection and what you take care of at Handled.</p></li></ul>
@@ -330,29 +343,31 @@
       <h2 class="h-sec" id="pledge-title">Our word to you</h2>
       <div>
         <ul class="pledge-list">
-          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg><span>We work for you, not the contractor.</span></li>
-          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg><span>We never add anything to your bill.</span></li>
-          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg><span>We only share your details with the pro we send.</span></li>
-          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg><span>Nobody comes to your home without your OK.</span></li>
-          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg><span>If something goes wrong, we stay on it.</span></li>
+          <li>We work for you, not the contractor.</li>
+          <li>We never add anything to your bill.</li>
+          <li>We only share your details with the pro we send.</li>
+          <li>Nobody comes to your home without your OK.</li>
+          <li>If something goes wrong, we stay on it.</li>
         </ul>
         <p class="sign">Justin, Austin and Tucker</p>
       </div>
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="pros-title">
+  <section class="sec rule-after" aria-labelledby="pros-title">
     <div class="wrap two-col">
       <h2 class="h-sec" id="pros-title">The pros we work with</h2>
       <div class="stack">
         <p class="lead">We're signing our first local pros now. Each one will be listed here by name.</p>
         <ul class="logo-slots" aria-hidden="true"><li>Partner logo</li><li>Partner logo</li><li>Partner logo</li><li>Partner logo</li><li>Partner logo</li><li>Partner logo</li></ul>
-        <p class="muted">Are you a local pro who does good work? We'd like to meet you. Our phone line opens soon.</p>
+        <p class="muted">Are you a local pro who does good work? <a class="link" href="#get-started" data-who="pro">Tell us about your work</a> and we'll reach out.</p>
       </div>
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="area-title" style="padding-top: 0">
+    <hr class="sect-rule" aria-hidden="true">
+
+<section class="sec rule-before" aria-labelledby="area-title">
     <div class="wrap two-col">
       <h2 class="h-sec" id="area-title">Where we work</h2>
       <div>
@@ -369,10 +384,11 @@
     <div class="wrap">
       <div class="flow-in">
         <p class="notice" id="preview-note" hidden><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg><span><strong>Online requests open soon.</strong> You can try this form, but nothing will be sent yet.</span></p>
+        <p class="emerg"><strong>Emergency?</strong> If you smell gas, see sparks, or have water pouring in, call 911 or your utility company first. We're not an emergency service.</p>
 
         <form id="flow" novalidate>
           <div class="progress" aria-hidden="true">
-            <div class="progress-top"><span id="prog-text">Step 1 of 6</span><span>Request No. 4127</span></div>
+            <div class="progress-top"><span id="prog-text">Step 1 of 5</span><span>Request No. 4127</span></div>
             <div class="bar"><i id="prog-bar"></i></div>
           </div>
 
@@ -382,6 +398,7 @@
               <label class="opt-row"><input type="radio" name="who" value="mine" id="who-mine"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">My home</span><span class="opt-sub">I live there.</span></label>
               <label class="opt-row"><input type="radio" name="who" value="parent" id="who-parent"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">My parent's home</span><span class="opt-sub">They live on Kent Island. I'll be your contact.</span></label>
               <label class="opt-row"><input type="radio" name="who" value="away" id="who-away"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">A home I'm away from</span><span class="opt-sub">A second home, a rental, or a winter away.</span></label>
+              <label class="opt-row"><input type="radio" name="who" value="pro" id="who-pro"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">I'm a local pro</span><span class="opt-sub">I do home work on Kent Island and want to hear about jobs.</span></label>
             </div>
             <p class="group-error" id="err-who" role="alert" hidden>Choose who the request is for.</p>
           </section>
@@ -405,24 +422,24 @@
                 <label class="pill"><input type="checkbox" name="needs" value="unsure" id="need-unsure">Not sure</label>
               </div>
             </fieldset>
-            <label class="member-opt" for="f-visit"><input type="checkbox" id="f-visit" name="visit"><span><strong>Have one of us check it out in person first.</strong> We'll come take a look, then line up the right pro.</span></label>
+            <fieldset id="fld-urgency">
+              <legend class="legend">How soon do you need help?</legend>
+              <div class="pills">
+                <label class="pill"><input type="radio" name="urgency" value="As soon as possible" id="urg-asap">As soon as possible</label>
+                <label class="pill"><input type="radio" name="urgency" value="This week" id="urg-week" checked>This week</label>
+                <label class="pill"><input type="radio" name="urgency" value="No rush" id="urg-norush">No rush</label>
+              </div>
+            </fieldset>
+            <label class="member-opt" id="visit-opt" for="f-visit"><input type="checkbox" id="f-visit" name="visit"><span><strong>Have one of us check it out in person first.</strong> We'll come take a look, then line up the right pro.</span></label>
           </section>
+
 
           <section class="q" data-q="3" aria-labelledby="q3-title" hidden>
-            <h1 id="q3-title" tabindex="-1">How soon do you need help?</h1>
-            <div class="opts" role="radiogroup" aria-labelledby="q3-title">
-              <label class="opt-row"><input type="radio" name="urgency" value="As soon as possible" id="urg-asap"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">As soon as possible</span><span class="opt-sub">Something's broken or getting worse.</span></label>
-              <label class="opt-row"><input type="radio" name="urgency" value="This week" id="urg-week" checked><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">This week</span><span class="opt-sub">It needs doing soon.</span></label>
-              <label class="opt-row"><input type="radio" name="urgency" value="No rush" id="urg-norush"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">No rush</span><span class="opt-sub">Whenever a good pro is free.</span></label>
-            </div>
-          </section>
-
-          <section class="q" data-q="4" aria-labelledby="q4-title" hidden>
-            <h1 id="q4-title" tabindex="-1">How should we reach you?</h1>
+            <h1 id="q3-title" tabindex="-1">How should we reach you?</h1>
             <div class="fields">
               <div class="row">
                 <div class="field" id="fld-name"><label class="label" for="f-name">Your name</label><input class="input" type="text" id="f-name" name="name" autocomplete="name" aria-describedby="err-name"><p class="field-error" id="err-name">Please enter your name.</p></div>
-                <div class="field" id="fld-phone"><label class="label" for="f-phone">Phone number</label><input class="input" type="tel" id="f-phone" name="phone" autocomplete="tel" inputmode="tel" aria-describedby="hint-phone err-phone"><p class="hint" id="hint-phone">Any format is fine.</p><p class="field-error" id="err-phone">Please enter a phone number with the area code.</p></div>
+                <div class="field" id="fld-phone"><label class="label" for="f-phone">Phone number</label><input class="input" type="tel" id="f-phone" name="phone" autocomplete="tel" inputmode="tel" aria-describedby="hint-phone err-phone"><p class="hint" id="hint-phone">Any format is fine. We only use it to call you about this request.</p><p class="field-error" id="err-phone">Please enter a phone number with the area code.</p></div>
               </div>
               <fieldset>
                 <legend class="legend">Best time to call</legend>
@@ -441,9 +458,9 @@
             </div>
           </section>
 
-          <section class="q" data-q="5" aria-labelledby="q5-title" hidden>
-            <h1 id="q5-title" tabindex="-1">Where's the home?</h1>
-            <div class="opts two compact" role="radiogroup" aria-labelledby="q5-title">
+          <section class="q" data-q="4" aria-labelledby="q4-title" hidden>
+            <h1 id="q4-title" tabindex="-1">Where's the home?</h1>
+            <div class="opts two compact" role="radiogroup" aria-labelledby="q4-title">
               <label class="opt-row"><input type="radio" name="town" value="Stevensville" id="town-stevensville"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">Stevensville</span></label>
               <label class="opt-row"><input type="radio" name="town" value="Chester" id="town-chester"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">Chester</span></label>
               <label class="opt-row"><input type="radio" name="town" value="Kent Narrows" id="town-narrows"><span class="opt-dot"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></span><span class="opt-title">Kent Narrows</span></label>
@@ -454,11 +471,11 @@
             <div class="field"><label class="label" for="f-street">Street address <span class="optional">(optional)</span></label><input class="input" type="text" id="f-street" name="street" autocomplete="street-address"></div>
           </section>
 
-          <section class="q" data-q="6" aria-labelledby="q6-title" hidden>
-            <h1 id="q6-title" tabindex="-1">Look it over.</h1>
+          <section class="q" data-q="5" aria-labelledby="q5-title" hidden>
+            <h1 id="q5-title" tabindex="-1">Look it over.</h1>
             <dl class="review" id="review"></dl>
             <label class="member-opt" for="f-member"><input type="checkbox" id="f-member" name="member"><span><strong>Sign me up as a founding member.</strong> We'll call to find the membership that fits and go over your price. No contract. No payment today.</span></label>
-            <p class="privacy"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg><span>We only share your details with the pro we send.</span></p>
+            <p class="privacy"><span>We only share your details with the pro we send.</span></p>
           </section>
 
           <div class="flow-nav">
@@ -481,6 +498,12 @@
               <li>After the visit, we check that it went right.</li>
             </ol>
           </div>
+          <div class="share" id="share">
+            <h2 class="h-sm">Know a neighbor who could use this?</h2>
+            <p class="muted">Send them a text. It doesn't include anything about your request.</p>
+            <a class="btn btn-ink" id="share-btn" href="sms:?&amp;body=I%20just%20asked%20Handled%20HomeCare%20for%20help%20with%20my%20house%20on%20Kent%20Island.%20They%20find%20a%20local%20pro%20and%20see%20the%20job%20through.%20https%3A%2F%2Fhandledhomecare.com%2Fn" data-msg="I just asked Handled HomeCare for help with my house on Kent Island. They find a local pro and see the job through. https://handledhomecare.com/n">Text this to a neighbor</a>
+            <p class="fine" id="share-status" role="status"></p>
+          </div>
           <button class="btn btn-quiet" type="button" id="again">Start another request</button>
         </div>
 
@@ -498,6 +521,8 @@
 
 </main>
 
+<a class="btn btn-sun sticky-cta" id="sticky-cta" href="#get-started" tabindex="-1" aria-hidden="true">Get started</a>
+
 <footer class="foot">
   <div class="wrap">
     <div class="foot-grid">
@@ -512,6 +537,7 @@
           <li><a href="#membership">Membership</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#get-started">Get started</a></li>
+          <li><a href="#get-started" data-who="pro">For local pros</a></li>
         </ul>
       </div>
       <div>
@@ -532,7 +558,7 @@
 
 <template id="tpl-check"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg></template>
 
-<script type="application/json" id="hh-data">{"scenarios":[{"key":"gutters","label":"Gutters","who":"mine","needs":["outside"],"msgs":[[1,"time","Today 9:12 AM"],[1,"me","Hi, it's Linda over on Cox Neck. Our gutters are overflowing again and there's another storm coming Thursday. Can someone clean them out?"],[1,"us","Hey Linda! For sure, we'll get someone out there before Thursday."],[2,"time","Today 11:40 AM"],[2,"us","Just talked to Mike. His crew out of Stevensville can come Wednesday morning."],[2,"us","It'd be $160 for the whole house, gutters and downspouts. Want me to lock it in?"],[3,"me","Yes please!"],[3,"us","Done! Wednesday between 9 and 11. You'll pay Mike directly when they finish. I'll text you when they're headed over."],[4,"time","Wednesday 1:20 PM"],[4,"us","Mike just wrapped up. The downspouts were packed with leaves. Everything look good on your end?"],[4,"me","Looks great. Thank you!"],[4,"us","Awesome, glad we could help. We'll remind you again in the spring."]]},{"key":"ac","label":"AC","who":"mine","needs":["inside"],"msgs":[[1,"time","Today 12:05 PM"],[1,"me","Our AC is running but it's blowing warm air, and it's 92 out."],[1,"us","Oh no, not today. Give us a few minutes to make some calls."],[2,"us","Dan, a heating and air tech we trust, can be there between 2 and 4 today."],[2,"us","It's $89 for him to come out and find the problem. He'll give you a price on any repair before he starts."],[3,"me","Please send him."],[3,"us","You're all set. You'll pay Dan directly. I'll let you know when he's on the way."],[4,"time","Today 4:45 PM"],[4,"us","Dan said it was a bad part and fixed it for $185. Is it cooling down?"],[4,"me","Like a fridge in here. You guys are lifesavers."],[4,"us","Love to hear it. We'll remind you to get a tune-up in the spring."]]},{"key":"storm","label":"Storm","who":"mine","needs":["outside"],"msgs":[[1,"time","Today 7:48 AM"],[1,"me","A big limb came down on our fence in last night's storm. Nobody's hurt, it's just a mess."],[1,"us","Glad everyone's okay! We'll get a tree crew lined up this morning."],[2,"us","A tree crew we trust can come Friday to cut it up and haul it all away."],[2,"us","$350 total, and they'll take a look at the fence while they're there."],[3,"me","Yes, please."],[3,"us","You're booked for Friday morning. You'll pay the crew directly."],[4,"time","Friday 12:30 PM"],[4,"us","Limb's gone! The fence needs two new posts though. Want us to find someone for that too?"],[4,"me","Yes, same deal."],[4,"us","On it. We'll send you a price before anything gets booked."]]},{"key":"parent","label":"Parents","who":"parent","needs":["safe"],"msgs":[[1,"time","Today 8:30 AM"],[1,"me","Hi, my mom lives in Chester and needs grab bars in her shower. I'm in Baltimore so I can't get over there."],[1,"us","No problem at all. We'll give her a call today and find a day that works for her."],[2,"us","An installer we trust can put in two grab bars Tuesday morning."],[2,"us","It's $240 installed. Want us to go ahead?"],[3,"me","Yes. She's home all day."],[3,"us","Booked for Tuesday at 10. We'll text you as soon as he's done."],[4,"time","Tuesday 11:50 AM"],[4,"us","All done! Your mom tried them out and said they feel really solid."],[4,"me","That's a huge relief. Thank you."],[4,"us","Of course. Whatever her house needs, just text us."]]},{"key":"away","label":"Away","who":"away","needs":["away"],"msgs":[[1,"time","Nov 2, 10:15 AM"],[1,"me","We head to Florida next week until April. Can someone keep an eye on the house?"],[1,"us","Absolutely. We'll set up regular house checks while you're gone."],[2,"us","A local house-check pro we trust can stop by every two weeks, plus after any big storm."],[2,"us","It's $60 a visit. Want to start the week you leave?"],[3,"me","Perfect, go ahead."],[3,"us","Done. You'll get photos after every visit."],[4,"time","Jan 14, 8:05 AM"],[4,"us","Big wind last night, so we had the house checked this morning. Everything's fine. Photos coming your way."],[4,"me","Thank you! That's a relief."],[4,"us","Enjoy the sun! We'll keep you posted until you're back."]]}]}</script>
+<script type="application/json" id="hh-data">{"scenarios":[{"key":"gutters","label":"Gutters","who":"mine","needs":["outside"],"msgs":[[1,"time","Today 9:12 AM"],[1,"me","Our gutters are overflowing again. Storm's coming Thursday."],[1,"us","We'll get right on that."],[2,"us","Mike can come Wednesday morning. $160 for the whole house. Want it?"],[3,"me","Yes please!"],[3,"us","Done. You're all set for Wednesday."],[4,"time","Wednesday 1:20 PM"],[4,"us","Mike's finished. Everything look good?"],[4,"me","Looks great, thanks!"],[4,"us","Anytime. We'll remind you in the spring."]]},{"key":"ac","label":"AC","who":"mine","needs":["inside"],"msgs":[[1,"time","Today 12:05 PM"],[1,"me","Our AC is blowing warm air and it's 92 out."],[1,"us","We've got you. On it now."],[2,"us","Dan can be there today between 2 and 4. $89 to find the problem. Want him?"],[3,"me","Yes, please send him."],[3,"us","Done. You're all set for 2 to 4."],[4,"time","Today 4:45 PM"],[4,"us","Dan fixed it for $185. Is it cooling down?"],[4,"me","Like a fridge in here. Thank you!"],[4,"us","Love to hear it. We'll remind you to get it checked in the spring."]]},{"key":"storm","label":"Storm","who":"mine","needs":["outside"],"msgs":[[1,"time","Today 7:48 AM"],[1,"me","A big limb fell on our fence in last night's storm. Nobody's hurt."],[1,"us","Glad you're okay. Don't worry about it, we'll handle it."],[2,"us","A tree crew can come Friday, cut it up and haul it away. $350 total. Want them?"],[3,"me","Yes, please."],[3,"us","Done. They're booked for Friday morning."],[4,"time","Friday 12:30 PM"],[4,"us","The limb's gone! The fence needs two new posts. Want us to find someone?"],[4,"me","Yes, same deal."],[4,"us","On it. We'll send you a price first."]]},{"key":"parent","label":"Parents","who":"parent","needs":["safe"],"msgs":[[1,"time","Today 8:30 AM"],[1,"me","My mom in Chester needs grab bars in her shower. I'm in Baltimore."],[1,"us","We've got you. We'll call her today to set it up."],[2,"us","Someone can put in two grab bars Tuesday morning. $240, installed. Want it?"],[3,"me","Yes. She's home all day."],[3,"us","Done. Tuesday at 10. We'll text you when it's finished."],[4,"time","Tuesday 11:50 AM"],[4,"us","All done! Your mom tried them and says they feel solid."],[4,"me","What a relief. Thank you!"],[4,"us","Of course. Anything she needs, just text us."]]},{"key":"away","label":"Away","who":"away","needs":["away"],"msgs":[[1,"time","Nov 2, 10:15 AM"],[1,"me","We leave for Florida next week until April. Can someone watch the house?"],[1,"us","Absolutely. We'll get right on that."],[2,"us","Someone can stop by every two weeks and after big storms. $60 a visit. Want it?"],[3,"me","Perfect, go ahead."],[3,"us","Done. You'll get photos after every visit."],[4,"time","Jan 14, 8:05 AM"],[4,"us","Big wind last night, so we checked the house. All fine. Photos coming."],[4,"me","Thank you!"],[4,"us","Enjoy the sun! We'll keep you posted."]]}]}</script>
 <script src="js/site-config.js"></script>
 <script src="js/app.js"></script>
 </body>
