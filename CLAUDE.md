@@ -7,7 +7,7 @@ Plain static site: no framework, no build step. Local preview: `npm run dev` (ht
 - `css/styles.css`: all styles. Brand tokens are in `:root` (navy `--ink`, blue `--bay`, gold `--sun`).
 - `js/app.js`: page switching, example text conversations, the request form.
 - `js/site-config.js`: the EmailJS `serviceId`, `templateId` and `publicKey`. Requests are emailed through EmailJS (plain `fetch` to its REST API, no library). Until all three are filled in the form runs in preview mode. EmailJS answers 429 at its limit; the form then shows "can't take requests right now".
-- `assets/`: logos and photos. `fonts/`: Source Serif 4 (headlines) and Public Sans (everything else).
+- `assets/`: logos and photos. `fonts/`: Libre Caslon Text (headlines, regular and bold only) and Hanken Grotesk (everything else).
 
 ## Dev server (never touch it)
 - The owner runs `npm run dev` themselves in their own terminal at http://localhost:3000.
@@ -23,7 +23,7 @@ Plain static site: no framework, no build step. Local preview: `npm run dev` (ht
 - Phone and email stay "opening soon" until the team says otherwise.
 
 ## Style
-- Clean and calm: big serif headlines (Source Serif 4), Public Sans for body and buttons, lots of space, one gold accent for the main action.
+- Clean and calm: big serif headlines (Libre Caslon Text, 400 and 700 only), Hanken Grotesk for body and buttons, lots of space, one gold accent for the main action.
 - Empty photo spots and "bio coming soon" notes are hidden from visitors. They only show with `?team`. Add `has-photo` to a `.slot` once a real photo is in it.
 - Short plain sentences. Test on a phone-width screen (390px) as well as desktop.
 - Add `?team` to the URL to see photo-shooting notes for the team.

@@ -5,8 +5,10 @@
    - corners: small and sharp. --r-s buttons, tags, fields. --r-m option rows, notices, photos. --r-l the hero photo and phone only
    - lines:   hairlines (--line) and one heavy ink rule (--rule) instead of boxes
    - motion:  only where it explains something (the phone story, the statement lighting up, the houses filling in) */
-@font-face{font-family:'Public Sans';font-style:normal;font-weight:100 900;font-display:swap;src:url("../fonts/public-sans.woff2") format('woff2');}
-@font-face{font-family:'Source Serif 4';font-style:normal;font-weight:200 900;font-display:swap;src:url("../fonts/source-serif-4.woff2") format('woff2');}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:100 900;font-display:swap;src:url("../fonts/hanken-grotesk.woff2") format('woff2');}
+/* Libre Caslon Text has only a regular and a bold. 400-500 use the regular and 600 and up use the bold, so no weight is ever faked. */
+@font-face{font-family:'Libre Caslon Text';font-style:normal;font-weight:400 500;font-display:swap;src:url("../fonts/libre-caslon-text-400.woff2") format('woff2');}
+@font-face{font-family:'Libre Caslon Text';font-style:normal;font-weight:600 900;font-display:swap;src:url("../fonts/libre-caslon-text-700.woff2") format('woff2');}
 :root {
   --white: #FFFFFF;      /* surfaces that stand out on the page: inputs, option rows, chips, cards, the phone screen */
   --page: var(--mist);   /* page background */
@@ -34,8 +36,8 @@
   --alert: #9E3620;
   --ok: #24744A;
   --ok-bg: #E7F3EC;
-  --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --serif: "Libre Caslon Text", Georgia, "Times New Roman", serif;
   --navh: 4rem;
   --vh100: 100vh;   /* full screen height; replaced by the small-viewport height below where supported */
 
@@ -43,19 +45,20 @@
   --t1: 1rem;
   --t2: 1.125rem;
   --t3: clamp(1.25rem, 1.1rem + .5vw, 1.4rem);
-  --t4: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
-  --t5: clamp(2.1rem, 1.4rem + 2.6vw, 3.4rem);
-  --t6: clamp(2.6rem, 1.5rem + 4vw, 4.6rem);
+  --t4: clamp(1.45rem, 1.2rem + .92vw, 1.9rem);   /* serif headings run about 8% smaller than before: Libre Caslon Text is wider */
+  --t5: clamp(1.95rem, 1.3rem + 2.4vw, 3.1rem);
+  --t6: clamp(2.4rem, 1.4rem + 3.7vw, 4.2rem);
   /* space scale */
   --sp-1: .5rem; --sp-2: 1rem; --sp-3: 1.5rem; --sp-4: 2rem; --sp-5: 3rem; --sp-6: 4rem; --sp-7: 6rem; --sp-8: 8rem;
-  --sec: clamp(var(--sp-6), 9vw, var(--sp-8));
+  --sec: clamp(7.5rem, 9.5vw, 8.75rem);   /* space above and below every section: about 120-140px */
+  --head-gap: 2rem;                         /* heading block to its content: 32px */
   --gap: clamp(var(--sp-3), 3vw, var(--sp-5));
   /* corners and rules */
   --r-s: 4px; --r-m: 8px; --r-l: 16px;
   --rule: 1.5px solid var(--ink);
   --wrap-pad: 16px;   /* matches .wrap side padding, so dividers line up with the content edges */
-  --half: calc((var(--sec) - 1px) / 2);                    /* half the gap between two sections, minus half the line */
-  --half-lg: calc((var(--sp-5) + var(--sec) - 1px) / 2);   /* the About intro has a shorter bottom padding */
+  --half: var(--sec);   /* a divider sits between two full section paddings, so it is centered in the gap */
+  --half-lg: var(--sec);
   color-scheme: light;
 }
 
@@ -144,9 +147,9 @@ h3 { font-size: var(--t3); font-weight: 700; line-height: 1.25; letter-spacing: 
 /* a Get started button follows you down the page on phones and tablets */
 .sticky-cta { display: none; }
 @media (max-width: 959px) {
-  .sticky-cta { display: inline-flex; position: fixed; z-index: 40; left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); min-height: 3.4rem; box-shadow: 0 8px 24px -8px rgb(15 34 64 / .45); translate: 0 calc(100% + 40px); opacity: 0; visibility: hidden; transition: translate .25s ease, opacity .2s ease, visibility 0s linear .25s; }
+  .sticky-cta { display: inline-flex; position: fixed; z-index: 40; --cta-x: max(16px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px)); left: var(--cta-x); right: var(--cta-x); width: auto; max-width: none; box-sizing: border-box; font-size: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); height: 48px; min-height: 0; padding-block: 0; align-items: center; justify-content: center; line-height: 1; border-radius: var(--r-s); box-shadow: 0 6px 18px -4px rgb(15 34 64 / .35); translate: 0 calc(100% + 40px); opacity: 0; visibility: hidden; transition: translate .25s ease, opacity .2s ease, visibility 0s linear .25s; }
   .sticky-cta { will-change: translate, opacity; }
-  .sticky-cta.is-on { translate: 0 0; opacity: 1; visibility: visible; transition-delay: 0s; }
+  .sticky-cta.is-on { translate: none; transform: none; opacity: 1; visibility: visible; transition-delay: 0s; }
   body[data-route="get-started"] .sticky-cta, body[data-route="about"] .sticky-cta { display: none; }
 }
 @media (min-width: 640px) and (max-width: 959px) { .sticky-cta { left: auto; right: max(24px, env(safe-area-inset-right, 0px)); width: auto; padding-inline: 2rem; } }
@@ -211,7 +214,7 @@ body:not(.is-team) .slot:not(.has-photo):not(.face-photo), body:not(.is-team) .b
 /* ---------- home: the problem (dark) ---------- */
 .night { background: var(--night); color: var(--on-night); }
 .statement { padding-block: var(--sec); }
-.statement-text { max-width: 22ch; font-size: var(--t5); font-weight: 500; line-height: 1.16; letter-spacing: -.018em; }
+.statement-text { max-width: 22ch; font-size: var(--t5); font-weight: 500; line-height: 1.28; letter-spacing: -.018em; }
 .js-reveal .w { color: var(--on-night-dim); transition: color .3s ease; }
 .js-reveal .w.lit { color: var(--on-night); }
 /* gold words: gold whenever lit, and always gold when the lighting effect is off (reduced motion, no script) */
@@ -219,19 +222,21 @@ body:not(.is-team) .slot:not(.has-photo):not(.face-photo), body:not(.is-team) .b
 .js-reveal .w.gold { color: var(--on-night-dim); }
 .js-reveal .w.gold.lit { color: var(--sun); }
 /* "stop procrastinating": one continuous underline, the same color as its words (so it lights up with them), including the space between */
-.statement-text .ul { text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 3px; text-underline-offset: .3em; text-decoration-skip-ink: none; }
+.statement-text .ul { text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 3px; text-underline-offset: .22em; text-decoration-skip-ink: none; }
+/* "stop procrastinating" never breaks across lines, so the underline is one unbroken line */
+.statement-text .nw { white-space: nowrap; }
 /* 65 of 100 houses fill in gold when the block scrolls into view (all gold without script or motion) */
 .stat { display: grid; grid-template-columns: minmax(0, 19rem) minmax(0, 1fr); gap: var(--sp-4) clamp(var(--sp-5), 7vw, var(--sp-7)); align-items: center; margin-top: var(--sec); padding-top: var(--sp-5); border-top: 1px solid var(--on-night-line); }
 .hgrid { display: block; width: 100%; max-width: 19rem; height: auto; }
-.hgrid .h { fill: none; stroke: var(--on-night-house); stroke-width: 1.6; stroke-linejoin: round; transform-box: fill-box; transform-origin: 50% 100%; }
-.hgrid .h.on { fill: var(--sun); stroke: var(--sun); transition: fill .3s ease, stroke .3s ease; transition-delay: calc(var(--i) * 11ms); }
+.hgrid .h { fill: none; stroke: var(--on-night-house); stroke-width: 1.2; stroke-linejoin: round; transform-box: fill-box; transform-origin: 50% 100%; }
+.hgrid .h:not(.on) { opacity: .55; }
+.hgrid .h.on { fill: var(--sun); stroke: var(--sun); }
+/* all 100 homes start as thin outlines; the 65 fill with gold in a diagonal wave from the top left (--d is set in app.js) */
 .js .hgrid:not(.is-on) .h.on { fill: transparent; stroke: var(--on-night-house); }
-/* the homes pop up one after another (left to right, top to bottom) as the block scrolls into view; the first 65 turn gold as they land */
-.js .hgrid:not(.is-on) .h { opacity: 0; transform: scale(.3); }
-.js .hgrid.is-on .h { animation: house-pop .5s cubic-bezier(.2, .9, .3, 1.25) both; animation-delay: calc(var(--i) * 11ms); }
-@keyframes house-pop { 0% { opacity: 0; transform: translateY(8px) scale(.3); } 60% { opacity: 1; transform: translateY(-1px) scale(1.12); } 100% { opacity: 1; transform: none; } }
+.js .hgrid.is-on .h.on { transition: fill .35s cubic-bezier(.22, .61, .36, 1) var(--d, 0ms), stroke .35s cubic-bezier(.22, .61, .36, 1) var(--d, 0ms); animation: house-fill .35s cubic-bezier(.22, .61, .36, 1) var(--d, 0ms) backwards; }
+@keyframes house-fill { 50% { transform: scale(1.06); } }
 .stat-big { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem var(--sp-2); }
-.stat-num { color: var(--sun); font-size: clamp(5rem, 3.4rem + 5vw, 8rem); font-weight: 600; line-height: .9; letter-spacing: -.035em; }
+.stat-num { display: inline-block; min-width: 2ch; font-variant-numeric: tabular-nums lining-nums; color: var(--sun); font-size: clamp(5rem, 3.4rem + 5vw, 8rem); font-weight: 600; line-height: .9; letter-spacing: -.035em; }
 .stat-of { color: var(--on-night); font-size: var(--t4); font-weight: 500; letter-spacing: -.012em; }
 .stat-text { margin-top: var(--sp-3); max-width: 21em; color: var(--on-night); font-size: var(--t3); line-height: 1.4; text-wrap: pretty; }
 .stat-turn { margin-top: var(--sp-2); color: var(--sun); font-size: var(--t4); font-weight: 600; letter-spacing: -.01em; }
@@ -249,11 +254,16 @@ body:not(.is-team) .slot:not(.has-photo):not(.face-photo), body:not(.is-team) .b
 .steps ol { border-top: var(--rule); }
 .step { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); column-gap: var(--sp-2); row-gap: .4rem; padding-block: var(--sp-2); border-bottom: 1px solid var(--line); }
 .step-num { grid-row: 1 / span 2; color: var(--sun); font: 700 var(--t4)/1.1 var(--serif); transition: color .3s ease; }
-.step h3 { font-size: var(--t4); font-weight: 600; letter-spacing: -.012em; transition: color .3s ease; }
+.step h3 { font-size: var(--t4); font-weight: 600; letter-spacing: -.012em; text-wrap: balance; transition: color .3s ease; }
 .step p { color: var(--ink-2); max-width: 28em; }
 /* step descriptions only (not the titles, numbers or heading): 16px on phones, 17px from 760px up */
 .steps .step p { font-size: 16px; line-height: 1.5; }
 @media (min-width: 760px) { .steps .step p { font-size: 17px; } }
+.step-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; color: var(--ink-2); max-width: 28em; }
+.step-list li { position: relative; padding-left: 22px; }
+.step-list li::before { content: "\2192"; position: absolute; left: 0; top: 0; color: var(--sun); font-weight: 700; line-height: inherit; -webkit-text-stroke: .7px currentColor; }
+.steps .step-list { font-size: 16px; line-height: 1.5; }
+@media (min-width: 760px) { .steps .step-list { font-size: 17px; } }
 
 /* phone */
 .phone { --pw: min(20.5rem, 84vw); position: relative; width: var(--pw); max-width: 100%; aspect-ratio: 9 / 18.6; padding: calc(var(--pw) * .03); border-radius: calc(var(--pw) * .155); background: var(--bezel); box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / .07), 0 2px 4px rgb(12 21 37 / .18), 0 30px 60px -32px rgb(19 41 74 / .5); }
@@ -381,7 +391,7 @@ body:not(.is-team) .faces-lg .face:not(:has(.has-photo)) { padding-top: var(--sp
 
 .price-band { padding-block: var(--sec); }
 .price-in, .close-in { display: grid; gap: var(--sp-3) var(--gap); }
-.price-in .h-sec, .close-in .h-sec { max-width: 14ch; }
+.price-in .h-sec, .close-in .h-sec { max-width: 17ch; }
 .price-in .lead, .close-in .lead { color: var(--on-night-2); }
 .price-in .cta-row, .close-in .cta-row { margin-top: var(--sp-1); }
 @media (min-width: 900px) {
@@ -393,7 +403,7 @@ body:not(.is-team) .faces-lg .face:not(:has(.has-photo)) { padding-top: var(--sp
 /* ---------- inner pages ---------- */
 .page-hero { padding-block: var(--sec) var(--sp-5); }
 .page-hero .wrap { display: grid; gap: var(--sp-3); }
-.page-hero .h-page { max-width: 15ch; }
+.page-hero .h-page { max-width: 17ch; }
 .h-page:focus { outline: none; }
 
 /* membership */
@@ -451,12 +461,12 @@ body:not(.is-team) .faces-lg .face:not(:has(.has-photo)) { padding-top: var(--sp
 .bio-tip { margin-top: .25rem; }
 .pledge { border-block: 1px solid var(--line); }
 .pledge-list { display: grid; border-top: var(--rule); }
-.pledge-list li { padding-block: var(--sp-2); border-bottom: 1px solid var(--line); font-size: var(--t4); font-weight: 600; line-height: 1.2; letter-spacing: -.01em; }
+.pledge-list li { padding-block: var(--sp-2); border-bottom: 1px solid var(--line); font-size: calc(var(--t4) * .84); font-weight: 600; line-height: 1.2; letter-spacing: -.01em; }
 .sign { margin-top: var(--sp-3); color: var(--ink-2); font-size: var(--t2); }
 .logo-slots { display: none; justify-self: stretch; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
 .is-team .logo-slots { display: grid; }
 .logo-slots li { display: grid; place-items: center; min-height: 5rem; border: 1.5px dashed rgb(29 98 165 / .3); border-radius: var(--r-m); color: var(--ink-3); font-size: var(--t1); font-weight: 600; text-align: center; padding: .5rem; }
-.towns { display: flex; flex-wrap: wrap; gap: .4rem 0; margin-bottom: var(--sp-3); font: 600 var(--t4)/1.2 var(--serif); }
+.towns { display: flex; flex-wrap: wrap; gap: .4rem 0; margin-bottom: var(--sp-3); font: 600 var(--t3)/1.2 var(--serif); }
 .towns li { padding-inline: var(--sp-2); border-left: 1px solid var(--line); }
 .towns li:first-child { padding-left: 0; border-left: 0; }
 .stack { display: grid; gap: var(--sp-3); justify-items: start; }
@@ -616,7 +626,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
    ===================================================================== */
 @media (max-width: 959px) {
   /* one tighter rhythm: sections, headlines */
-  :root { --sec: clamp(2.5rem, 7vw, 4rem); --t6: clamp(2.25rem, 1.1rem + 4vw, 3.4rem); }
+  :root { --sec: clamp(4.5rem, 4rem + 2vw, 5rem); --head-gap: 1.5rem; --t6: clamp(2.1rem, 1rem + 3.7vw, 3.1rem); }
   .mem-hero { padding-top: var(--sp-4); }
   .foot { padding-block: var(--sp-5) var(--sp-4); }   /* the Get started bar hides when the footer is on screen */
 
@@ -705,5 +715,82 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   .hero-copy .fine { font-size: 14px; }
 }
 
-/* phones and small tablets: only the gold "handled." sits 30px lower (a bit more space under "Your home,"); nothing else moves */
-@media (max-width: 959px) { .ht-bottom { margin-top: 30px; } }
+/* phones and small tablets: only the gold "handled." sits right under "Your home," at normal line spacing, then 12px lower; nothing else moves */
+@media (max-width: 959px) { .ht-bottom { margin-top: 12px; } }
+
+/* phones and small tablets: room under the last content for the floating Get started bar (48px + 12px + a gap),
+   the last step has no line of its own (the section rule right below is the only divider), and the footer email wraps instead of widening the page */
+@media (max-width: 959px) {
+  .foot { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+  .step:last-child { border-bottom: 0; }
+  .foot-grid > div:last-child { grid-column: 1 / -1; }
+}
+.foot a[href^="mailto:"] { overflow-wrap: anywhere; }
+
+/* ---------- section rhythm ----------
+   Every section has --sec above and below it (about 120-140px, 72-80px on phones). A divider between two sections
+   sits between two full paddings, so it is centered in the gap. A heading block is --head-gap (32px, 24px on phones)
+   above its content. The spacing inside lists, rows and cards is not touched. */
+.help-list, .aud-grid, .inc-grid, .flows, .faces-lg { margin-top: var(--head-gap); }
+.two-col, .faq-grid { row-gap: var(--head-gap); }
+/* the page intros at the top of About keep their own top spacing */
+.page-hero { padding-top: clamp(6rem, 9vw, 8rem); }
+@media (max-width: 959px) { .page-hero { padding-top: clamp(2.5rem, 7vw, 4rem); } }
+
+
+/* ---------- home: the closing "Membership" pitch, phones and small tablets only ----------
+   Top to bottom: gold line and label, heading, one short paragraph, a 3-part strip, the button, a quiet link.
+   About 24px between groups, 12px inside a group. (The label is hidden on desktop, which is unchanged.) */
+.price-eyebrow { display: none; }
+@media (max-width: 959px) {
+  .price-in { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+  .price-in .price-eyebrow { display: block; order: 1; margin: 0 0 12px; color: var(--sun); font-size: 14px; font-weight: 600; letter-spacing: .08em; line-height: 1.2; }
+  .price-in .price-eyebrow::before { content: ""; display: block; width: 40px; height: 2px; margin-bottom: 12px; background: var(--sun); }
+  .price-in .h-sec { order: 2; max-width: none; font-size: calc(var(--t5) * .96); text-wrap: balance; }
+  .price-in .lead { order: 3; margin-top: 24px; max-width: none; }
+  .price-in .lead-more { display: none; }
+  .price-in .assure { order: 4; display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 0; margin-top: 24px; padding-block: 12px; border-block: 1px solid var(--on-night-line); color: #FFFFFF; font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .price-in .assure li { padding: 0 10px; margin: 0; border: 0; border-left: 1px solid rgb(234 164 60 / .55); text-align: center; }
+  .price-in .assure li:first-child { padding-left: 0; border-left: 0; }
+  .price-in .assure li:last-child { padding-right: 0; }
+  .price-in .cta-row { order: 5; display: flex; flex-direction: column; align-items: stretch; gap: 12px; width: 100%; margin-top: 24px; }
+  .price-in .cta-row .btn { width: 100%; min-height: 52px; height: 52px; }
+  .price-in .cta-row .link { justify-content: center; align-self: center; color: var(--on-night-2); font-weight: 500; text-decoration: none; }
+  .price-in .cta-row .link::after { content: "\2192"; margin-left: .4em; text-decoration: none; }
+}
+/* the hero text group (lead line, button, link) sits at the bottom of the hero photo on every screen size.
+   The photo is a full-height flex column and the group has margin-top: auto, so it holds at any screen height.
+   56px under the buttons on desktop, 28px on phones. The headline is positioned on its own and does not move. */
+.hero-media { display: flex; flex-direction: column; }
+.hero-copy { position: relative; top: auto; right: auto; bottom: auto; left: auto; margin: auto var(--edge) 56px max(8px, calc(var(--edge) - var(--nx))); }
+@media (max-width: 959px) { .hero-copy { margin-bottom: 28px; } }
+/* on narrow phones the link sits under the button and its 44px tap area hangs 5px below the row, so the row gets 5px more */
+@media (max-width: 759px) { .hero-copy { margin-bottom: 33px; } }
+
+/* ---------- home: the closing "Membership" pitch, desktop (960px and wider) ----------
+   Same pieces as on phones. Two connected columns: the label and heading on the left; the paragraph, the 3-part row and the
+   button on the right, with their tops level with the top of the heading. The section has 25% less space above and below. */
+@media (min-width: 960px) {
+  .price-band { padding-block: calc(var(--sec) * .75); }
+  .price-band .price-in { grid-template-columns: minmax(0, max-content) minmax(0, 34rem); column-gap: 4rem; row-gap: 0; align-items: start; }
+  .price-band .price-in .price-eyebrow { display: block; grid-column: 1; grid-row: 1; margin: 0 0 12px; color: var(--sun); font-size: 14px; font-weight: 600; letter-spacing: .08em; line-height: 1.2; }
+  .price-band .price-in .price-eyebrow::before { content: ""; display: block; width: 40px; height: 2px; margin-bottom: 12px; background: var(--sun); }
+  .price-band .price-in .h-sec { grid-column: 1; grid-row: 2 / span 3; max-width: 15.2ch; }
+  .price-band .price-in .lead { grid-column: 2; grid-row: 2; margin: 0; max-width: none; }
+  .price-band .price-in .lead-more { display: none; }
+  .price-band .price-in .assure { grid-column: 2; grid-row: 3; display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 0; margin-top: 24px; padding-block: 12px; border-block: 1px solid var(--on-night-line); color: #FFFFFF; font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .price-band .price-in .assure li { padding: 0 14px; margin: 0; border: 0; border-left: 1px solid rgb(234 164 60 / .55); text-align: center; }
+  .price-band .price-in .assure li:first-child { padding-left: 0; border-left: 0; }
+  .price-band .price-in .assure li:last-child { padding-right: 0; }
+  .price-band .price-in .cta-row { grid-column: 2; grid-row: 4; margin-top: 24px; align-items: center; gap: 12px 24px; }
+  .price-band .price-in .cta-row .btn { min-height: 52px; height: 52px; font-size: 16px; }
+  .price-band .price-in .cta-row .link { color: var(--on-night-2); font-weight: 500; text-decoration: none; }
+  .price-band .price-in .cta-row .link::after { content: "\2192"; margin-left: .4em; text-decoration: none; }
+}
+
+/* phones and small tablets: the two headline lines move up together (the gap between them is unchanged) and sit on the page's
+   left margin instead of 8px from the screen edge. The lead line and buttons are placed on their own and do not move. */
+@media (max-width: 959px) { .hero-title { margin-top: -50px; left: calc(var(--edge) + 1.5px); } }
+
+/* phones and small tablets: the statement is a little smaller (88%) and its lines break evenly (no short "so you can" line) */
+@media (max-width: 959px) { .statement-text { font-size: calc(var(--t5) * .88); text-wrap: balance; } }

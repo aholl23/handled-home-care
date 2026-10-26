@@ -259,11 +259,36 @@
   /* ---------- 65 of 100 houses ---------- */
   var hgrid = document.querySelector(".hgrid");
   if (hgrid) {
+    var statNum = document.querySelector(".stat-num");
+    var FILL_MS = 350, STAGGER_MS = 12;
+    /* the gold homes fill in a diagonal wave from the top left: sort by column + row, then by row */
+    var gold = Array.prototype.slice.call(hgrid.querySelectorAll(".h.on")).map(function (el) {
+      var c = Math.round(+el.getAttribute("x") / 30), r = Math.round(+el.getAttribute("y") / 30);
+      return { el: el, k: (c + r) * 10 + r };
+    }).sort(function (a, b) { return a.k - b.k; });
+    gold.forEach(function (g, n) { g.el.style.setProperty("--d", n * STAGGER_MS + "ms"); });
+    var runMs = (gold.length - 1) * STAGGER_MS + FILL_MS;
+    var countUp = function () {
+      var t0 = null;
+      function tick(t) {
+        if (t0 === null) t0 = t;
+        var p = Math.min(1, (t - t0) / runMs);
+        statNum.textContent = Math.round(gold.length * p);
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    };
     if (reduceMotion || !("IntersectionObserver" in window)) hgrid.classList.add("is-on");
     else {
+      if (statNum) statNum.textContent = "0";
       var hObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting) { hgrid.classList.add("is-on"); hObs.disconnect(); } });
-      }, { threshold: 0.45 });
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          hgrid.classList.add("is-on");
+          if (statNum) countUp();
+          hObs.disconnect();
+        });
+      }, { threshold: 0.4 });
       hObs.observe(hgrid);
     }
   }
