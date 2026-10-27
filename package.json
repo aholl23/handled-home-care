@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite --port 3000 --open"
+    "dev": "vite --port 3000 --open",
+    "build": "vite build"
   },
   "devDependencies": {
     "vite": "^6.3.5"

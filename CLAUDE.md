@@ -1,6 +1,6 @@
 # Handled HomeCare website (handledhomecare.com)
 
-Plain static site: no framework, no build step. Local preview: `npm run dev` (http://localhost:3000). Cloudflare Pages deploys every push to `main` automatically.
+Plain static site, no framework. Cloudflare Pages runs `vite build` and publishes `dist/`; vite.config.js copies js/, fonts/, assets/, icons, _headers and _redirects into dist/. If you add a new top-level static file or folder, add it to the STATIC list in vite.config.js or it won't go live. Test a production build with `npm run build` (output in dist/, which is gitignored). Local preview: `npm run dev` (http://localhost:3000). Cloudflare Pages deploys every push to `main` automatically.
 
 ## Files
 - `index.html`: all page text and layout. Pages are sections (`data-page="home|membership|about|get-started"`) switched by the URL hash (#membership).
