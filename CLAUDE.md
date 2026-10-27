@@ -57,3 +57,7 @@ Street: {{street}}
 Town: {{town}}
 ```
 Set **To Email** to the inbox that should get requests, **From Name** to `Handled HomeCare website`, **Reply To** to `{{reply_to}}`.
+
+## Cache busting (do this every time you change CSS or JS)
+- index.html loads css/styles.css, js/app.js and js/site-config.js with a ?v= version. When you change any of those files, update the ?v= value on all three to the current date and time (YYYYMMDDHHMM) before committing. Otherwise visitors can get an old cached copy and animations or styles break on the live site.
+- Keep data-cfasync="false" on the script tags so Cloudflare Rocket Loader leaves them alone.
