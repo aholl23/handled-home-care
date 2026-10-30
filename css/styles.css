@@ -441,6 +441,8 @@ body:not(.is-team) .faces-lg .face:not(:has(.has-photo)) { padding-top: var(--sp
 .opt-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
 .opt { display: grid; gap: var(--sp-2); align-content: start; justify-items: start; padding-top: var(--sp-3); border-top: var(--rule); }
 .opt p { color: var(--ink-2); max-width: 28em; }
+.opt-grid > .opt:only-child { grid-column: 1 / -1; }
+.opt-grid > .opt:only-child p { max-width: 40em; }
 .faq-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--sp-4) var(--gap); align-items: start; }
 .mem-close { padding-block: var(--sec); }
 .qa { border-bottom: 1px solid var(--line); }
