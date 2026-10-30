@@ -10,6 +10,8 @@
   function make(tag, cls, text) { var el = document.createElement(tag); if (cls) el.className = cls; if (text != null) el.textContent = text; return el; }
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var WHO_LABEL = { mine: "My home", parent: "My parent's home", away: "A home I'm away from", pro: "A local pro" };
+  var PATH_LABEL = { fix: "Something needs fixing", check: "Seasonal home check", watch: "House watch while away", parent: "Looking after a parent's home", join: "Just joining (free)", pro: "Local pro" };
+  var PAID = { check: 1, watch: 1, parent: 1 };
   var NEED_LABEL = { inside: "Inside the house", outside: "Outside the house", water: "On the water", safe: "Safe at home", away: "House checks", unsure: "Not sure" };
   var state = { db: null, user: null, uid: null, canSave: false };
   /* On the real website, js/site-config.js sets window.HH_SITE. Inside the Claude artifact it is absent. */
@@ -299,14 +301,21 @@
   var TOTAL = qs.length;
   var step = 1;
   var draft = null;
+  var backToReview = false;
   var nextBtn = $("next"), backBtn = $("back"), statusEl = $("flow-status");
   var doneBox = $("done");
-  var ticketNo = "4127";
+  var ticketNo = String(1000 + Math.floor(Math.random() * 9000));
+  document.querySelectorAll(".progress-top span:last-child").forEach(function (s) { s.textContent = "Request No. " + ticketNo; });
 
   function val(id) { var el = $(id); return el ? el.value.trim() : ""; }
   function radio(name) { var el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ""; }
   function checked(name) { return Array.prototype.map.call(form.querySelectorAll('input[name="' + name + '"]:checked'), function (i) { return i.value; }); }
+  function path() { return radio("path"); }
+  function digitsOk(s) { var d = s.replace(/\D/g, ""); return d.length === 10 || (d.length === 11 && d.charAt(0) === "1"); }
+  /* Which of the five screens this path walks through. Joining skips the details; pros skip the home. */
+  function stepList() { var p = path(); return p === "join" ? [1, 3, 4, 5] : p === "pro" ? [1, 2, 4, 5] : [1, 2, 3, 4, 5]; }
 
+  /* Links elsewhere on the site hand over the old who/needs/member values. They map onto the new paths here. */
   function setDraft(d) {
     if (!draft) draft = {};
     if (d.who) draft.who = d.who;
@@ -314,66 +323,121 @@
     if (d.notes) draft.notes = d.notes;
     if (d.member === true || d.member === false) draft.member = d.member;
   }
+  function draftPath(d) {
+    var needs = d.needs || [];
+    if (d.who === "pro") return "pro";
+    if (d.who === "parent") return "parent";
+    if (d.who === "away" || needs.indexOf("away") >= 0) return "watch";
+    if (d.who === "mine") return "fix";
+    if (d.member === true) return "join";
+    if (d.member === false || needs.length) return "fix";
+    return "";
+  }
+  function addText(ta, text) { if (ta.value.indexOf(text) < 0) ta.value = ta.value ? ta.value.replace(/\s+$/, "") + "\n" + text : text; }
   function applyDraft() {
     if (!draft) return;
     if (!doneBox.hidden) resetFlow(false);
     var d = draft; draft = null;
-    if (d.who && $("who-" + d.who)) $("who-" + d.who).checked = true;
-    (d.needs || []).forEach(function (n) { var el = $("need-" + n); if (el) el.checked = true; });
-    if (d.notes) {
-      var ta = $("f-details");
-      if (ta.value.indexOf(d.notes) < 0) ta.value = ta.value ? ta.value.replace(/\s+$/, "") + "\n" + d.notes : d.notes;
-    }
-    if (d.member === true || d.member === false) $("f-member").checked = d.member;
+    var p = draftPath(d);
+    if (p && $("path-" + p)) $("path-" + p).checked = true;
+    if (p === "fix") (d.needs || []).forEach(function (n) { var el = $("need-" + n); if (el) el.checked = true; });
+    if (d.notes) addText(p === "fix" || !p ? $("f-details") : $("f-extra"), d.notes);
     syncFlow();
   }
   function openFlow() { applyDraft(); }
 
+  var Q2_TITLE = { fix: "What needs fixing?", check: "When would you like your home check?", watch: "Tell us about your time away.", parent: "Tell us about your parent.", pro: "Tell us about your work." };
+  var Q3_TITLE = { watch: "Which home will you be away from?", parent: "Where's your parent's home?" };
+  var Q4_HELP = { parent: "Your own details, not your parent's. We'll call you first.", join: "We'll send seasonal reminders here. A phone number, an email, or both.", pro: "Your own details. We'll use them to reach you about jobs." };
+  var EXTRA_LABEL = { fix: "Anything else we should know?", check: "Anything we should look at? Want house watch too? Say so here.", watch: "Anything else we should know? Want a home check too? Say so here.", parent: "What would help most? Is there a best way to reach them?", pro: "Anything else about your work?" };
+  var EXTRA_HINT = { fix: "Renting it out? Add who lives there and their number. More than one address? List them here." };
+
   function syncFlow() {
     form.querySelectorAll(".opt-row, .pill").forEach(function (l) { var i = l.querySelector("input"); l.classList.toggle("is-checked", !!(i && i.checked)); });
-    var isPro = radio("who") === "pro";
-    $("parent-fields").hidden = radio("who") !== "parent";
-    $("fld-urgency").hidden = isPro;
-    $("visit-opt").hidden = isPro;
-    var memberOnly = $("f-member").checked;
-    $("q2-help").textContent = isPro ? "Tell us what work you do and how long you've done it." : memberOnly
-      ? "Anything you need help with right now? This is optional if you're just joining."
-      : "Describe it in your own words, the way you'd tell a neighbor.";
-    $("prog-text").textContent = "Step " + step + " of " + TOTAL;
-    $("prog-bar").style.width = (step / TOTAL * 100) + "%";
+    var p = path();
+    form.querySelectorAll("[data-panel]").forEach(function (el) { el.hidden = el.getAttribute("data-panel") !== p; });
+    $("extra-wrap").hidden = !EXTRA_LABEL[p];
+    $("extra-label").textContent = EXTRA_LABEL[p] || "";
+    $("extra-label").appendChild(make("span", "optional", " (optional)"));
+    if (EXTRA_HINT[p]) $("extra-label").appendChild(make("span", "hint", EXTRA_HINT[p])).style.display = "block";
+    $("q2-title").textContent = Q2_TITLE[p] || "Tell us more.";
+    $("q3-title").textContent = Q3_TITLE[p] || "Where's the home?";
+    $("q4-title").textContent = p === "join" ? "Where should we send reminders?" : "How can we reach you?";
+    $("q4-help").textContent = Q4_HELP[p] || "Your own details. We'll use them to call you about this request.";
+    var emailOnly = radio("how") === "Email me" && p !== "join";
+    $("q3-help").hidden = p !== "join";
+    $("phone-opt").hidden = !(p === "join" || emailOnly);
+    $("phone-opt").textContent = p === "join" ? "(one is enough)" : "(optional)";
+    $("email-opt").hidden = emailOnly;
+    $("email-opt").textContent = p === "join" ? "(one is enough)" : "(optional)";
+    $("fld-how").hidden = p === "join";
+    $("fld-calltime").hidden = p === "join" || emailOnly;
+    $("fld-owner-phone").querySelector(".label").textContent = radio("pknows") === "Not yet, call me first" ? "Their phone (optional)" : "Their phone";
+    var list = stepList(), idx = Math.max(0, list.indexOf(step));
+    $("prog-text").textContent = "Step " + (idx + 1) + " of " + list.length;
+    $("prog-bar").style.width = ((idx + 1) / list.length * 100) + "%";
     backBtn.disabled = step === 1;
-    nextBtn.textContent = step < TOTAL ? "Continue" : (state.canSave ? "Send my request" : "Preview my request");
-    nextBtn.className = "btn " + (step < TOTAL ? "btn-ink" : "btn-sun");
+    var last = step === TOTAL;
+    nextBtn.textContent = last ? (state.canSave ? (p === "join" ? "Join for free" : "Send my request") : "Preview my request") : backToReview ? "Back to review" : "Continue";
+    nextBtn.className = "btn " + (last ? "btn-sun" : "btn-ink");
   }
   form.addEventListener("change", syncFlow);
 
   function clearErrors() {
     form.querySelectorAll(".has-error").forEach(function (f) { f.classList.remove("has-error"); });
     form.querySelectorAll("[aria-invalid]").forEach(function (i) { i.removeAttribute("aria-invalid"); });
-    $("err-who").hidden = true;
-    $("err-town").hidden = true;
+    form.querySelectorAll(".group-error").forEach(function (e) { e.hidden = true; });
   }
   function fieldError(fid, iid) { $(fid).classList.add("has-error"); $(iid).setAttribute("aria-invalid", "true"); }
+  function groupError(eid, firstInput) { $(eid).hidden = false; return $(firstInput); }
   function validate(n) {
     clearErrors();
-    var first = null;
-    if (n === 1 && !radio("who")) { $("err-who").hidden = false; first = $("who-mine"); }
-    if (n === 2 && !$("f-member").checked && val("f-details").length < 3) { fieldError("fld-details", "f-details"); first = $("f-details"); }
-    if (n === 3) {
-      var digits = val("f-phone").replace(/\D/g, "");
-      var em = val("f-email");
-      if (!val("f-name")) { fieldError("fld-name", "f-name"); first = first || $("f-name"); }
-      if (!(digits.length === 10 || (digits.length === 11 && digits.charAt(0) === "1"))) { fieldError("fld-phone", "f-phone"); first = first || $("f-phone"); }
-      if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { fieldError("fld-email", "f-email"); first = first || $("f-email"); }
-      if (radio("who") === "parent" && !val("f-owner")) { fieldError("fld-owner", "f-owner"); first = first || $("f-owner"); }
+    var p = path(), first = null;
+    function note(el) { first = first || el; }
+    if (n === 1 && !p) note(groupError("err-path", "path-fix"));
+    if (n === 2) {
+      if (p === "fix" && val("f-details").length < 3) { fieldError("fld-details", "f-details"); note($("f-details")); }
+      if (p === "check" && !radio("season")) note(groupError("err-season", "season-spring"));
+      if (p === "watch") {
+        if (!val("f-away")) { fieldError("fld-away", "f-away"); note($("f-away")); }
+        if (!radio("freq")) note(groupError("err-freq", "freq-week"));
+        if (!radio("storm")) note(groupError("err-storm", "storm-yes"));
+      }
+      if (p === "parent") {
+        var op = val("f-owner-phone");
+        if (!val("f-owner")) { fieldError("fld-owner", "f-owner"); note($("f-owner")); }
+        if (!radio("pknows")) note(groupError("err-pknows", "pknows-yes"));
+        if ((radio("pknows") === "Yes, they know" && !digitsOk(op)) || (op && !digitsOk(op))) { fieldError("fld-owner-phone", "f-owner-phone"); note($("f-owner-phone")); }
+      }
+      if (p === "pro") {
+        if (!val("f-trade")) { fieldError("fld-trade", "f-trade"); note($("f-trade")); }
+        if (!checked("served").length) note(groupError("err-served", "served-stev"));
+        if (!radio("insured")) note(groupError("err-insured", "ins-yes"));
+      }
     }
-    if (n === 4 && !radio("town")) { $("err-town").hidden = false; first = $("town-stevensville"); }
+    if (n === 3) {
+      if (!radio("town")) note(groupError("err-town", "town-stevensville"));
+      if (!radio("htype") && p !== "join") note(groupError("err-htype", "htype-house"));
+    }
+    if (n === 4) {
+      var em = val("f-email"), ph = val("f-phone");
+      if (!val("f-name")) { fieldError("fld-name", "f-name"); note($("f-name")); }
+      if (p === "join") {
+        if (!ph && !em) { $("err-reach").hidden = false; note($("f-phone")); }
+        if (ph && !digitsOk(ph)) { fieldError("fld-phone", "f-phone"); note($("f-phone")); }
+      } else if (radio("how") === "Email me") {
+        if (!em) { fieldError("fld-email", "f-email"); $("err-email").textContent = "Add your email so we can reach you."; note($("f-email")); }
+        if (ph && !digitsOk(ph)) { fieldError("fld-phone", "f-phone"); note($("f-phone")); }
+      } else if (!digitsOk(ph)) { fieldError("fld-phone", "f-phone"); note($("f-phone")); }
+      if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { fieldError("fld-email", "f-email"); $("err-email").textContent = "That email looks incomplete. It should look like name@example.com."; note($("f-email")); }
+    }
     if (first) { first.focus(); return false; }
     return true;
   }
 
   function goTo(n, focus) {
     step = Math.max(1, Math.min(TOTAL, n));
+    if (step === TOTAL) backToReview = false;
     qs.forEach(function (q) {
       var on = +q.getAttribute("data-q") === step;
       q.hidden = !on;
@@ -382,35 +446,52 @@
     });
     statusEl.textContent = "";
     clearErrors();
-    if (step === TOTAL) buildReview($("review"), true);
     syncFlow();
+    if (step === TOTAL) buildReview($("review"), true);
     var top = form.getBoundingClientRect().top + window.pageYOffset - (document.querySelector(".nav").offsetHeight + 24);
     if (window.pageYOffset > top) window.scrollTo(0, Math.max(0, top));
     if (focus !== false) { var h = $("q" + step + "-title"); try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
   }
-  backBtn.addEventListener("click", function () { goTo(step - 1); });
+  backBtn.addEventListener("click", function () { var l = stepList(), i = l.indexOf(step); backToReview = false; goTo(l[Math.max(0, i - 1)]); });
+  function nextStep() { var l = stepList(), i = l.indexOf(step); return l[Math.min(l.length - 1, i + 1)]; }
 
   function record() {
-    var who = radio("who");
-    return {
+    var p = path(), pro = p === "pro", join = p === "join", nohome = pro || join;
+    var parent = p === "parent";
+    var r = {
       id: "r" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
       ticketNo: ticketNo,
       createdAt: new Date().toISOString(),
-      who: who,
-      needs: checked("needs").map(function (n) { return NEED_LABEL[n] || n; }),
-      details: val("f-details"),
-      urgency: who === "pro" ? "Not applicable (local pro)" : radio("urgency"),
+      path: p,
       name: val("f-name"),
       phone: val("f-phone"),
-      callTime: radio("calltime"),
+      contactHow: join ? "" : radio("how"),
+      callTime: join || radio("how") === "Email me" ? "" : radio("calltime"),
       email: val("f-email"),
-      ownerName: who === "parent" ? val("f-owner") : "",
-      ownerPhone: who === "parent" ? val("f-owner-phone") : "",
-      town: radio("town"),
-      street: val("f-street"),
-      visit: who === "pro" ? false : $("f-visit").checked,
-      member: $("f-member").checked
+      town: pro ? checked("served").join(", ") : join ? "" : radio("town"),
+      street: nohome ? "" : val("f-street"),
+      homeType: nohome ? "" : radio("htype"),
+      acAge: nohome ? "" : val("f-ac"),
+      roofAge: nohome ? "" : val("f-roof"),
+      extra: EXTRA_LABEL[p] ? val("f-extra") : "",
+      member: !pro,
+      details: "", needs: [], urgency: "", visit: false,
+      season: "", away: "", freq: "", storm: "",
+      ownerName: "", ownerPhone: "", ownerKnows: "",
+      trade: "", insured: ""
     };
+    if (p === "fix") { r.details = val("f-details"); r.needs = checked("needs").map(function (n) { return NEED_LABEL[n] || n; }); r.urgency = radio("urgency"); r.visit = $("f-visit").checked; }
+    if (p === "check") r.season = radio("season");
+    if (p === "watch") { r.away = val("f-away"); r.freq = radio("freq"); r.storm = radio("storm"); }
+    if (parent) { r.ownerName = val("f-owner"); r.ownerPhone = val("f-owner-phone"); r.ownerKnows = radio("pknows") === "Yes, they know" ? "Yes, they know" : "Not yet, call the child first"; }
+    if (pro) { r.trade = val("f-trade"); r.insured = radio("insured") === "Yes" ? "Yes" : "No"; }
+    return r;
+  }
+  function reachLine(r) {
+    var bits = [r.name];
+    if (r.phone) bits.push(r.phone);
+    if (r.contactHow) bits.push(r.contactHow.toLowerCase().replace(" me", "") + (r.callTime && r.callTime !== "Any time" ? ", " + r.callTime.toLowerCase() : ""));
+    return bits.join(", ");
   }
   function buildReview(dl, editable) {
     var r = record();
@@ -425,22 +506,36 @@
         var b = make("button", null, "Edit");
         b.type = "button";
         b.setAttribute("aria-label", "Edit " + k.toLowerCase());
-        b.addEventListener("click", function () { goTo(toStep); });
+        b.addEventListener("click", function () { backToReview = true; goTo(toStep); });
         dd.appendChild(b);
       }
       d.appendChild(dd);
       dl.appendChild(d);
     }
     if (!editable) row("Request", "No. " + r.ticketNo);
-    row("For", (WHO_LABEL[r.who] || "") + (r.ownerName ? " (" + r.ownerName + ")" : ""), 1);
-    row("The job", r.details || (r.member ? "Joining as a member" : ""), 2);
-    if (r.needs.length) row("Kind of job", r.needs.join(", "), 2);
-    if (r.visit) row("Visit first", "Yes, check it out in person", 2);
-    row("How soon", r.urgency, 2);
-    row("We'll call", r.name + ", " + r.phone + " (" + r.callTime.toLowerCase() + ")", 3);
-    if (r.email) row("Email", r.email, 3);
-    row("Home", [r.street, r.town].filter(Boolean).join(", "), 4);
-    if (!editable && r.member) row("Membership", "Yes, sign me up");
+    row("What", PATH_LABEL[r.path], 1);
+    if (r.path === "fix") {
+      row("The job", r.details, 2);
+      row("Kind of job", r.needs.join(", "), 2);
+      row("How soon", r.urgency, 2);
+      if (r.visit) row("Look first", "Yes, check it out in person", 2);
+    }
+    row("When", r.season, 2);
+    if (r.path === "watch") { row("Away", r.away, 2); row("Visits", r.freq, 2); row("After storms", r.storm, 2); }
+    if (r.path === "parent") { row("Parent", r.ownerName + (r.ownerPhone ? ", " + r.ownerPhone : ""), 2); row("They know", r.ownerKnows, 2); }
+    if (r.path === "pro") { row("Work", r.trade, 2); row("Towns", r.town, 2); row("Insured", r.insured, 2); }
+    row("Notes", r.extra, 2);
+    if (r.path !== "pro") row(r.path === "parent" ? "Parent's home" : "Home", [r.street, radio("town"), r.homeType].filter(Boolean).join(", "), 3);
+    row("AC and roof", [r.acAge ? "AC " + r.acAge : "", r.roofAge ? "Roof " + r.roofAge : ""].filter(Boolean).join(", "), 3);
+    row(r.path === "join" ? "Reminders to" : "We'll reach", reachLine(r), 4);
+    if (r.email) row("Email", r.email, 4);
+    if (editable) {
+      var p = r.path;
+      $("member-note").textContent = p === "pro"
+        ? "Pros pay us a referral fee on jobs we send. We'll go over it on the call."
+        : "You'll be a free member: we'll send seasonal reminders. Unsubscribe anytime." + (PAID[p] ? " No payment today. We'll go over the price on the call." : "");
+      $("privacy-note").textContent = p === "pro" ? "" : "We only share your details with a pro when a job needs one.";
+    }
   }
 
   function cap(name) {
@@ -475,9 +570,19 @@
   })().catch(function () { setPreview(); });
 
   /* Sends the request through the EmailJS REST API. Field names match the template in CLAUDE.md. */
+  function detailLines(r) {
+    var L = [];
+    if (r.path === "fix") { L.push("The job: " + r.details, "Kind of job: " + (r.needs.join(", ") || "Not said"), "How soon: " + r.urgency, "Check it out in person first: " + (r.visit ? "Yes" : "No")); }
+    if (r.path === "check") L.push("Preferred time: " + r.season);
+    if (r.path === "watch") L.push("Away: " + r.away, "Visits: " + r.freq, "Storm checks: " + r.storm);
+    if (r.path === "parent") L.push("Parent: " + r.ownerName + (r.ownerPhone ? ", " + r.ownerPhone : ", no phone given"), "Parent knows we'll call: " + r.ownerKnows);
+    if (r.path === "pro") L.push("Trade: " + r.trade, "Towns served: " + r.town, "Insured (their answer, we don't claim it): " + r.insured);
+    if (r.path === "join") L.push("Just joining. No job.");
+    return L.join("\n");
+  }
   async function sendByEmail(rec) {
-    var yes = function (v) { return v ? "Yes" : "No"; };
-    var who = (WHO_LABEL[rec.who] || rec.who) + (rec.ownerName ? ": " + rec.ownerName + (rec.ownerPhone ? ", " + rec.ownerPhone : "") : "");
+    var none = function (v) { return v || "Not given"; };
+    var na = function (v) { return v || "Not applicable"; };
     var res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -487,20 +592,36 @@
         user_id: EMAILJS.publicKey,
         template_params: {
           request_no: rec.ticketNo,
+          sent_at: new Date(rec.createdAt).toLocaleString(),
+          path: PATH_LABEL[rec.path],
+          membership: rec.member ? "Free member (reminders)" : "No (local pro)",
           name: rec.name,
-          phone: rec.phone,
-          call_time: rec.callTime,
-          who_for: who,
-          kind_of_job: rec.needs.join(", ") || "Not said",
-          job: rec.details || (rec.member ? "Joining as a member" : ""),
-          how_soon: rec.urgency,
-          visit_first: yes(rec.visit),
-          membership: yes(rec.member),
-          street: rec.street || "Not given",
-          town: rec.town,
-          email: rec.email || "Not given",
+          phone: none(rec.phone),
+          contact_pref: rec.contactHow ? rec.contactHow.replace(" me", "") : "Not asked",
+          call_time: rec.callTime || "Not asked",
+          email: none(rec.email),
           reply_to: rec.email,
-          sent_at: new Date(rec.createdAt).toLocaleString()
+          request_details: detailLines(rec),
+          job: na(rec.details),
+          kind_of_job: na(rec.needs.join(", ")),
+          how_soon: na(rec.urgency),
+          visit_first: rec.path === "fix" ? (rec.visit ? "Yes" : "No") : "Not applicable",
+          season: na(rec.season),
+          away_dates: na(rec.away),
+          visit_frequency: na(rec.freq),
+          storm_checks: na(rec.storm),
+          parent_name: na(rec.ownerName),
+          parent_phone: na(rec.ownerPhone),
+          parent_knows: na(rec.ownerKnows),
+          trade: na(rec.trade),
+          towns_served: rec.path === "pro" ? rec.town : "Not applicable",
+          insured: na(rec.insured),
+          home_type: na(rec.homeType),
+          ac_age: none(rec.acAge),
+          roof_age: none(rec.roofAge),
+          extra_notes: none(rec.extra),
+          street: rec.path === "pro" || rec.path === "join" ? "Not applicable" : none(rec.street),
+          town: rec.town || "Not applicable"
         }
       })
     });
@@ -527,8 +648,7 @@
     e.preventDefault();
     if (sending) return;
     if (!validate(step)) return;
-    if (step < TOTAL) { goTo(step + 1); return; }
-    if (!$("f-member").checked && val("f-details").length < 3) { goTo(2); validate(2); return; }
+    if (step < TOTAL) { goTo(backToReview ? TOTAL : nextStep()); return; }
     sending = true;
     nextBtn.disabled = true;
     statusEl.textContent = "";
@@ -557,19 +677,33 @@
     }
   });
 
+  /* What the thank-you screen says depends on the path they picked. */
+  function doneCopy(r, when) {
+    var first = r.name.split(/\s+/)[0] || "";
+    var hi = first ? ", " + first : "";
+    var reach = r.contactHow === "Text me" ? "We'll text you" : r.contactHow === "Email me" ? "We'll email you" : "We'll call you";
+    var at = r.callTime && r.callTime !== "Any time" ? " " + (r.callTime === "Morning" ? "in the morning" : r.callTime === "Afternoon" ? "in the afternoon" : "in the evening") : " soon";
+    if (r.path === "fix") return { title: "Thank you" + hi + ". We have your request.", body: reach + at + " to talk it over. Nothing is booked or charged until you say yes.", steps: [reach + " and ask a few questions." + (r.visit ? " We'll set up a time to look at it in person first." : ""), "We find a local pro we trust and send you their price.", "You say yes. They do the job and you pay them directly. We never add anything to their price.", "After the job, we check that it went right."] };
+    if (r.path === "check") return { title: "Thank you" + hi + ". We have your request.", body: reach + at + " to pick a day. No payment has been taken.", steps: [reach + " to pick a day" + (r.season && r.season.indexOf("Not sure") < 0 ? " in " + r.season.toLowerCase().replace("as soon as you can", "the next few weeks") : "") + ".", "We'll go over the price of the check on the call.", "We walk through your home and send you what we saw.", "For anything we find, we line up local pros. You pay them directly."] };
+    if (r.path === "watch") return { title: "Thank you" + hi + ". We have your request.", body: reach + at + " to plan your time away. No payment has been taken.", steps: [reach + " to go over your dates and how often to stop by.", "We'll go over the price on the call.", "We visit on the schedule and send you a note each time.", r.storm === "Yes" ? "After a big storm, we check the house and tell you what we find." : "If a big storm comes and you want us to check, just tell us."] };
+    if (r.path === "parent") return { title: "Thank you" + hi + ". We have your request.", body: (r.ownerKnows.indexOf("Not yet") === 0 ? "We'll call you first. We won't call " + r.ownerName + " until you say so." : "We'll call you first, then " + r.ownerName + ".") + " No payment has been taken.", steps: [reach + " first to learn about " + r.ownerName + " and what would help.", "We'll go over the price on the call.", "We check in on " + r.ownerName + "'s home and send you updates.", "If something needs fixing, we line up a local pro. You pay them directly."] };
+    if (r.path === "pro") return { title: "Thanks" + hi + ". We have your details.", body: "We'll be in touch about the kind of work you do.", steps: [reach + at.replace(" soon", " soon") + " to learn about your work.", "When a homeowner in your towns needs your trade, we send you the job.", "You quote and do the work. The homeowner pays you directly.", "Pros pay us a referral fee on jobs we send. We'll go over it on the call."] };
+    return { title: "You're in" + hi + ". Welcome.", body: "You're a free member. We'll send seasonal reminders" + (r.phone && r.email ? " by text and email" : r.phone ? " by text" : " by email") + ". Unsubscribe anytime.", steps: ["Watch for your first seasonal reminder.", "When something needs doing, come back and tell us. We'll find a local pro.", "Want a home check, house watch, or help with a parent's home? Ask any time. We'll go over the price on a call."] };
+  }
   function finish(rec, sent) {
-    var first = rec.name.split(/\s+/)[0] || "";
-    var when = { "Morning": "in the morning", "Afternoon": "in the afternoon", "Evening": "in the evening" }[rec.callTime] || "soon";
+    var c = doneCopy(rec);
     doneBox.classList.toggle("is-preview", !sent);
     if (sent) {
-      $("done-title").textContent = "Thank you" + (first ? ", " + first : "") + ". We have your request.";
-      $("done-body").textContent = rec.member && !rec.details
-        ? "We'll call you " + when + " to go over membership options and your price. No payment has been taken."
-        : "We'll call you " + when + " to talk it over and find the right pro. Nothing is booked or charged until you say yes.";
+      $("done-title").textContent = c.title;
+      $("done-body").textContent = c.body;
     } else {
       $("done-title").textContent = "Here's how your request would look.";
       $("done-body").textContent = "Online requests open soon, so this one was not sent. Nothing was booked or charged.";
     }
+    var ol = $("next-list");
+    ol.textContent = "";
+    c.steps.forEach(function (t) { ol.appendChild(make("li", null, t)); });
+    $("share").hidden = rec.path === "pro";
     buildReview($("done-summary"), false);
     $("done-next").hidden = !sent;
     form.hidden = true;
@@ -581,6 +715,7 @@
     form.reset();
     clearErrors();
     statusEl.textContent = "";
+    backToReview = false;
     ticketNo = String(1000 + Math.floor(Math.random() * 9000));
     document.querySelectorAll(".progress-top span:last-child").forEach(function (s) { s.textContent = "Request No. " + ticketNo; });
     doneBox.hidden = true;
@@ -605,11 +740,11 @@
       if (!all.length) { list.appendChild(make("p", "fine", "No requests yet.")); return; }
       all.forEach(function (it) {
         var c = make("article", "req");
-        c.appendChild(make("strong", null, "No. " + (it.ticketNo || "?") + ", " + String(it.name || "No name") + (it.member ? ", wants membership" : "")));
+        c.appendChild(make("strong", null, "No. " + (it.ticketNo || "?") + ", " + String(it.name || "No name") + ""));
         var when = "";
         try { when = new Date(it.createdAt).toLocaleString([], { dateStyle: "medium", timeStyle: "short" }); } catch (e) {}
         c.appendChild(make("span", null, [when, it.phone, it.callTime ? "call " + String(it.callTime).toLowerCase() : "", it.email].filter(Boolean).join(", ")));
-        c.appendChild(make("span", null, [WHO_LABEL[it.who] || "", it.ownerName ? "Parent: " + it.ownerName + (it.ownerPhone ? " " + it.ownerPhone : "") : "", [it.street, it.town].filter(Boolean).join(", ")].filter(Boolean).join(". ")));
+        c.appendChild(make("span", null, [PATH_LABEL[it.path] || WHO_LABEL[it.who] || "", it.ownerName ? "Parent: " + it.ownerName + (it.ownerPhone ? " " + it.ownerPhone : "") : "", [it.street, it.town].filter(Boolean).join(", ")].filter(Boolean).join(". ")));
         if (Array.isArray(it.needs) && it.needs.length) c.appendChild(make("span", null, it.needs.join(", ") + (it.urgency ? ". " + it.urgency : "")));
         if (it.visit) c.appendChild(make("span", null, "Wants one of us to check it out in person first"));
         if (it.details) c.appendChild(make("p", "d", String(it.details)));

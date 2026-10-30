@@ -226,7 +226,8 @@ body:not(.is-team) .slot:not(.has-photo):not(.face-photo), body:not(.is-team) .b
 /* "stop procrastinating" never breaks across lines, so the underline is one unbroken line */
 .statement-text .nw { white-space: nowrap; }
 /* 65 of 100 houses fill in gold when the block scrolls into view (all gold without script or motion) */
-.stat { display: grid; grid-template-columns: minmax(0, 19rem) minmax(0, 1fr); gap: var(--sp-4) clamp(var(--sp-5), 7vw, var(--sp-7)); align-items: center; margin-top: var(--sec); padding-top: var(--sp-5); border-top: 1px solid var(--on-night-line); }
+.stat-sec { padding-block: var(--sec); }
+.stat { display: grid; grid-template-columns: minmax(0, 19rem) minmax(0, 1fr); gap: var(--sp-4) clamp(var(--sp-5), 7vw, var(--sp-7)); align-items: center; }
 .hgrid { display: block; width: 100%; max-width: 19rem; height: auto; }
 .hgrid .h { fill: none; stroke: var(--on-night-house); stroke-width: 1.2; stroke-linejoin: round; transform-box: fill-box; transform-origin: 50% 100%; }
 .hgrid .h:not(.on) { opacity: .55; }
@@ -673,9 +674,8 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   .hero-copy .cta-row { gap: var(--sp-1); }
   .price-in .btn, .close-in .btn { width: 100%; }
 
-  /* footer: brand on top, the link list in two columns, then two short columns side by side */
-  .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3) var(--sp-3); }
-  .foot-brand, .foot-grid > div:nth-child(2) { grid-column: 1 / -1; }
+  /* footer: one column, brand first, the link list in two columns inside it */
+  .foot-grid { grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); }
   .foot-grid > div:nth-child(2) ul { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--sp-3); }
   .legal { margin-top: var(--sp-4); }
 }
@@ -749,7 +749,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   .price-in .h-sec { order: 2; max-width: none; font-size: calc(var(--t5) * .96); text-wrap: balance; }
   .price-in .lead { order: 3; margin-top: 24px; max-width: none; }
   .price-in .lead-more { display: none; }
-  .price-in .assure { order: 4; display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 0; margin-top: 24px; padding-block: 12px; border-block: 1px solid var(--on-night-line); color: #FFFFFF; font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .price-in .assure { order: 4; display: grid; grid-template-columns: repeat(2, auto); justify-content: space-between; gap: 0; margin-top: 24px; padding-block: 12px; border-block: 1px solid var(--on-night-line); color: #FFFFFF; font-size: 14px; font-weight: 500; white-space: nowrap; }
   .price-in .assure li { padding: 0 10px; margin: 0; border: 0; border-left: 1px solid rgb(234 164 60 / .55); text-align: center; }
   .price-in .assure li:first-child { padding-left: 0; border-left: 0; }
   .price-in .assure li:last-child { padding-right: 0; }
@@ -794,3 +794,15 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 
 /* phones and small tablets: the statement is a little smaller (88%) and its lines break evenly (no short "so you can" line) */
 @media (max-width: 959px) { .statement-text { font-size: calc(var(--t5) * .88); text-wrap: balance; } }
+
+/* ---------- request form: path panels ---------- */
+.panel { display: grid; gap: var(--sp-3); }
+.panel > .row, .extras .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); }
+.q fieldset { display: grid; gap: .25rem; min-width: 0; }
+.q fieldset > .hint, .q fieldset > .group-error { margin-top: .5rem; }
+.optional { color: var(--ink-2); font-weight: 400; }
+.textarea.short { min-height: 6rem; }
+.extras { display: grid; gap: .5rem; }
+.member-note { padding: 1.15rem 1.25rem; border-radius: var(--r-m); background: var(--white); border: 1px solid var(--line); font-weight: 600; }
+.member-note:empty, .privacy:empty { display: none; }
+@media (max-width: 759px) { .panel > .row, .extras .row { grid-template-columns: minmax(0, 1fr); } }

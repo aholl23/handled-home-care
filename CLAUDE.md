@@ -19,7 +19,10 @@ Plain static site, no framework. Cloudflare Pages runs `vite build` and publishe
 - Never say the company is licensed, insured, or bonded.
 - Never mention Shore Works.
 - No fake reviews or testimonials.
-- Membership price varies by membership type. Don't show a flat price.
+- Membership is FREE. It covers finding trusted local pros, coordinating jobs, and seasonal reminders. Never show a membership price.
+- We make money from paid seasonal home checks, house watch, a parent care plan, and referral fees pros pay us. Customers pay pros directly. We never add anything to a pro's price.
+- Don't show prices for paid services yet. Where a price would go, write "We'll go over the price on the call."
+- Never call the check an "inspection" (that needs a license in Maryland). Say "home check" or "seasonal walkthrough."
 - Phone and email stay "opening soon" until the team says otherwise.
 
 ## Style
@@ -31,31 +34,35 @@ Plain static site, no framework. Cloudflare Pages runs `vite build` and publishe
 ## Check before pushing
 - Every page loads with no console errors: #home, #membership, #about, #get-started.
 - Nothing scrolls sideways at 390px.
-- The request form still reaches the thank-you screen (5 steps).
+- The request form still reaches the thank-you screen on every path (fix, home check, house watch, parent, just join, local pro). Join skips step 2 and pros skip step 3, so those paths are 4 steps.
 
 ## EmailJS template (new template, Reply To = `{{reply_to}}`)
-**Subject:** `New request No. {{request_no}} from {{name}} ({{town}})`
+**Subject:** `New request No. {{request_no}}: {{path}} from {{name}} ({{town}})`
 
 **Body:**
 ```
 New request No. {{request_no}}
 Sent: {{sent_at}}
+What they want: {{path}}
+Membership: {{membership}}
 
 Name: {{name}}
 Phone: {{phone}}
-Best time to call: {{call_time}}
+Reach by: {{contact_pref}}
+Best time: {{call_time}}
 Email: {{email}}
 
-For: {{who_for}}
-Kind of job: {{kind_of_job}}
-The job: {{job}}
-How soon: {{how_soon}}
-Check it out in person first: {{visit_first}}
-Wants membership: {{membership}}
+{{request_details}}
 
 Street: {{street}}
 Town: {{town}}
+Home type: {{home_type}}
+AC age: {{ac_age}}
+Roof age: {{roof_age}}
+
+Notes: {{extra_notes}}
 ```
+`{{request_details}}` is built per path (only the lines that apply). The site also sends each field on its own, in case you want to split the template later: `job, kind_of_job, how_soon, visit_first, season, away_dates, visit_frequency, storm_checks, parent_name, parent_phone, parent_knows, trade, towns_served, insured`. For a local pro, `{{town}}` is the towns they serve. Fields that don't apply say "Not applicable"; optional ones left blank say "Not given".
 Set **To Email** to the inbox that should get requests, **From Name** to `Handled HomeCare website`, **Reply To** to `{{reply_to}}`.
 
 ## Cache busting (do this every time you change CSS or JS)
